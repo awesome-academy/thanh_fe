@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 206 85% 40%; /* #0F6FBD - Cacao 600 Primary Blue */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 206 85% 40%;
+
+    --radius: 0.5rem;
+
+    /* Exact TripGo Cacao Design System Tokens */
+    --cacao-50: 234 243 251;    /* #EAF3FB */
+    --cacao-100: 203 227 246;   /* #CBE3F6 */
+    --cacao-200: 159 203 238;   /* #9FCBEE */
+    --cacao-300: 107 174 228;   /* #6BAEE4 */
+    --cacao-400: 59 144 214;    /* #3B90D6 */
+    --cacao-500: 19 125 208;    /* #137DD0 - Exact Brand Blue Accent (Logo/Badge) */
+    --cacao-600: 15 111 189;    /* #0F6FBD - Primary Button Background */
+    --cacao-700: 11 90 156;     /* #0B5A9C - Primary Button Hover */
+    --cacao-800: 9 71 120;      /* #094778 */
+    --cacao-900: 8 53 90;       /* #08355A */
+
+    --navy-700: 27 50 82;       /* #1B3252 */
+    --navy-800: 20 39 63;       /* #14273F */
+    --navy-900: 15 32 56;       /* #0F2038 - Header & Dark Shell */
+    --navy-950: 10 22 38;       /* #0A1626 */
+
+    --surface-page: 245 246 248;/* #F5F6F8 */
+    --surface-card: 255 255 255;/* #FFFFFF */
+    --border-subtle: 227 230 235;/* #E3E6EB */
+    --text-strong: 22 27 34;    /* #161B22 */
+    --text-body: 44 51 61;      /* #2C333D */
+    --text-muted: 92 102 117;   /* #5C6675 */
+    --text-subtle: 124 134 151; /* #7C8697 */
+    --status-star: 198 138 30;  /* #C68A1E */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    background-color: rgb(var(--surface-page));
+    color: rgb(var(--text-body));
+    font-feature-settings: "rlbl" 1, "calt" 1;
+  }
+}
