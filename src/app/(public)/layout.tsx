@@ -18,13 +18,13 @@ export default function PublicLayout({
             </span>
           </Link>
           <nav className="flex items-center gap-6 text-sm font-medium">
-            <Link href="/tours" className="text-[#EAF1F8] hover:text-white transition-colors">
+            <Link href="/tours" className="text-cacao-50 hover:text-white transition-colors">
               Tour
             </Link>
-            <Link href="/tours?dest=da-nang" className="text-[#9FB0C4] hover:text-white transition-colors">
+            <Link href="/tours?dest=da-nang" className="text-textSubtle hover:text-white transition-colors">
               Điểm đến
             </Link>
-            <Link href="/tours?sort=discount" className="text-[#9FB0C4] hover:text-white transition-colors">
+            <Link href="/tours?sort=discount" className="text-textSubtle hover:text-white transition-colors">
               Ưu đãi
             </Link>
           </nav>
@@ -32,7 +32,9 @@ export default function PublicLayout({
         <div className="flex items-center gap-4">
           <Link
             href="/wishlist"
-            className="flex items-center gap-1.5 text-[13px] text-[#9FB0C4] hover:text-white transition-colors"
+            className="flex items-center gap-1.5 text-xs text-textSubtle hover:text-white transition-colors"
+            aria-label="Tour yêu thích"
+            title="Tour yêu thích"
           >
             <svg
               width="17"
@@ -55,16 +57,16 @@ export default function PublicLayout({
         </div>
       </header>
       <main className="flex-1">{children}</main>
-      <footer className="bg-navy-900 text-[#9FB0C4] py-9 px-8 mt-16">
+      <footer className="bg-navy-900 text-textSubtle py-9 px-8 mt-16">
         <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-6">
           <div className="flex items-center gap-2.5">
             <span className="w-[22px] h-[22px] rounded-md bg-cacao-500 block" />
             <span className="text-[15px] font-bold text-white">TripGo</span>
-            <span className="text-xs text-[#9FB0C4] ml-2">
+            <span className="text-xs text-textSubtle ml-2">
               © 2026 TripGo Travel JSC
             </span>
           </div>
-          <div className="flex gap-6 text-13px text-[#9FB0C4]">
+          <div className="flex gap-6 text-textSubtle">
             <span>Về TripGo</span>
             <span>Liên hệ</span>
             <span>Điều khoản</span>
