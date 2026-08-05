@@ -69,6 +69,5 @@
   body {
     background-color: rgb(var(--surface-page));
     color: rgb(var(--text-body));
-    font-feature-settings: "rlbl" 1, "calt" 1;
   }
 }
