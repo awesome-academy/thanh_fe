@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "da-nang",
+    "name": "Đà Nẵng",
+    "tourCount": 24,
+    "startingPrice": 4290000,
+    "gradient": "linear-gradient(135deg, #0F6FBD 0%, #137DD0 100%)"
+  },
+  {
+    "slug": "ha-long",
+    "name": "Vịnh Hạ Long",
+    "tourCount": 18,
+    "startingPrice": 3290000,
+    "gradient": "linear-gradient(135deg, #1B3252 0%, #0F6FBD 100%)"
+  },
+  {
+    "slug": "phu-quoc",
+    "name": "Phú Quốc",
+    "tourCount": 32,
+    "startingPrice": 5890000,
+    "gradient": "linear-gradient(135deg, #08355A 0%, #137DD0 100%)"
+  },
+  {
+    "slug": "sa-pa",
+    "name": "Sa Pa",
+    "tourCount": 15,
+    "startingPrice": 3690000,
+    "gradient": "linear-gradient(135deg, #14273F 0%, #3B90D6 100%)"
+  },
+  {
+    "slug": "da-lat",
+    "name": "Đà Lạt",
+    "tourCount": 29,
+    "startingPrice": 2990000,
+    "gradient": "linear-gradient(135deg, #0F6FBD 0%, #6BAEE4 100%)"
+  },
+  {
+    "slug": "nha-trang",
+    "name": "Nha Trang",
+    "tourCount": 21,
+    "startingPrice": 3890000,
+    "gradient": "linear-gradient(135deg, #137DD0 0%, #9FCBEE 100%)"
+  }
+]

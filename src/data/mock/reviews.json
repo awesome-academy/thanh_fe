@@ -1,0 +1,20 @@
+[
+  {
+    "id": "r1",
+    "tourId": "t1",
+    "userName": "Trần Văn Nam",
+    "userInitials": "VN",
+    "rating": 5,
+    "comment": "Chuyến đi tuyệt vời! Du thuyền 5 sao sang trọng, hải sản tươi ngon, hướng dẫn viên chu đáo.",
+    "createdAt": "2026-05-20"
+  },
+  {
+    "id": "r2",
+    "tourId": "t2",
+    "userName": "Lê Thị Mai",
+    "userInitials": "TM",
+    "rating": 5,
+    "comment": "Cầu Vàng Bà Nà Hills đẹp xuất sắc! Xe đưa đón đúng giờ, lịch trình hợp lý cho gia đình.",
+    "createdAt": "2026-05-28"
+  }
+]

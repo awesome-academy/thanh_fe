@@ -1,0 +1,532 @@
+[
+  {
+    "id": "t1",
+    "slug": "ha-long-du-thuyen-5-sao-2n1d",
+    "name": "Hạ Long — Du thuyền 5 sao 2 ngày 1 đêm",
+    "dest": "ha-long",
+    "days": 2,
+    "price": 3290000,
+    "kidPrice": 2290000,
+    "rating": 4.9,
+    "reviews": 128,
+    "type": "bien-dao",
+    "image": "https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #0F6FBD 0%, #137DD0 100%)",
+    "highlights": [
+      "Trải nghiệm du thuyền 5 sao đẳng cấp quốc tế",
+      "Chèo thuyền Kayak khám phá hang Luồn & đảo Ti Tốp",
+      "Thưởng thức tiệc nướng BBQ hải sản tươi sống trên sundeck",
+      "Tập Thái Cực Quyền đón bình minh trên vịnh"
+    ],
+    "excludes": ["Vé máy bay di chuyển đến Hà Nội/Quảng Ninh", "Chi phí cá nhân ngoài chương trình"],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Hà Nội — Hạ Long — Đón khách lên du thuyền",
+        "content": "Xe đón quý khách tại điểm hẹn ở Hà Nội khởi hành đi Hạ Long. Check-in du thuyền 5 sao, thưởng thức đồ uống chào mừng."
+      },
+      {
+        "day": 2,
+        "title": "Tập Thái Cực Quyền — Hang Ti Tốp — Trở về Hà Nội",
+        "content": "Đón bình minh và tập Thái Cực Quyền trên sundeck. Tham quan đảo Ti Tốp, leo núi ngắm toàn cảnh Vịnh Hạ Long."
+      }
+    ]
+  },
+  {
+    "id": "t2",
+    "slug": "da-nang-hoi-an-ba-na-hills-3n2d",
+    "name": "Đà Nẵng — Hội An — Bà Nà Hills 3 ngày 2 đêm",
+    "dest": "da-nang",
+    "days": 3,
+    "price": 4290000,
+    "kidPrice": 2990000,
+    "rating": 4.8,
+    "reviews": 94,
+    "type": "van-hoa",
+    "image": "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #1B3252 0%, #0F6FBD 100%)",
+    "highlights": [
+      "Check-in Cầu Vàng nổi tiếng thế giới tại Bà Nà Hills",
+      "Dạo phố cổ Hội An rực rỡ đèn lồng về đêm",
+      "Tắm biển Mỹ Khê — Top 6 bãi biển đẹp nhất hành tinh"
+    ],
+    "excludes": ["Vé máy bay khứ hồi", "Chi phí trò chơi trả phí tại Fantasy Park"],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Đón sân bay Đà Nẵng — Phố cổ Hội An",
+        "content": "Đón quý khách tại sân bay Đà Nẵng. Viếng Chùa Linh Ứng Sơn Trà và dạo phố cổ Hội An."
+      },
+      {
+        "day": 2,
+        "title": "Bà Nà Hills — Cầu Vàng — Công viên Fantasy",
+        "content": "Đi cáp treo lên đỉnh Bà Nà. Khám phá Cầu Vàng, Làng Pháp và vui chơi tại Fantasy Park."
+      },
+      {
+        "day": 3,
+        "title": "Tắm biển Mỹ Khê — Mua sắm chợ Hàn",
+        "content": "Tự do tắm biển Mỹ Khê buổi sáng. Ghé chợ Hàn mua quà lưu niệm và tiễn ra sân bay."
+      }
+    ]
+  },
+  {
+    "id": "t3",
+    "slug": "phu-quoc-thien-duong-dao-ngoc-4n3d",
+    "name": "Phú Quốc — Thiên đường đảo ngọc & Grand World 4N3Đ",
+    "dest": "phu-quoc",
+    "days": 4,
+    "price": 5890000,
+    "kidPrice": 4190000,
+    "rating": 4.9,
+    "reviews": 156,
+    "type": "bien-dao",
+    "image": "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #0F6FBD 0%, #3B90D6 100%)",
+    "highlights": [
+      "Cano 4 đảo khám phá Hòn Mây Rút, Hòn Móng Tay",
+      "Lặn ngắm san hô tự nhiên tuyệt đẹp",
+      "Vui chơi không giới hạn tại Grand World"
+    ],
+    "excludes": ["Vé cáp treo Hòn Thơm", "Chi phí cá nhân"],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Đón sân bay Phú Quốc — Sunset Sanato",
+        "content": "Đón quý khách tại sân bay Phú Quốc. Chiều ngắm hoàng hôn đỉnh cao tại Sunset Sanato."
+      },
+      {
+        "day": 2,
+        "title": "Tour cano 4 đảo — Lặn ngắm san hô",
+        "content": "Khám phá hòn Mây Rút, Móng Tay. Lặn ngắm quần thể san hô sống tự nhiên."
+      },
+      {
+        "day": 3,
+        "title": "Grand World — Thành phố không ngủ",
+        "content": "Khám phá Grand World Phú Quốc và đi thuyền Gondola trên kênh đào Venice."
+      },
+      {
+        "day": 4,
+        "title": "Chợ Dương Đông — Tiễn sân bay",
+        "content": "Ghé chợ Dương Đông mua đặc sản và tiễn sân bay."
+      }
+    ]
+  },
+  {
+    "id": "t4",
+    "slug": "sa-pa-fansipan-cap-treo-moana-3n2d",
+    "name": "Sa Pa — Chinh phục đỉnh Fansipan & Moana 3N2Đ",
+    "dest": "sa-pa",
+    "days": 3,
+    "price": 3690000,
+    "kidPrice": 2590000,
+    "rating": 4.7,
+    "reviews": 88,
+    "type": "nui-trekking",
+    "image": "https://images.unsplash.com/photo-1570789210967-2cac24afeb00?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #14273F 0%, #137DD0 100%)",
+    "highlights": [
+      "Chinh phục đỉnh Fansipan 3.143m bằng cáp treo",
+      "Săn mây tại khu check-in Moana tuyệt đẹp",
+      "Khám phá bản Cát Cát của người H'Mông"
+    ],
+    "excludes": ["Tàu hỏa leo núi Đỗ Quyên", "Chi phí thuê trang phục"],
+    "itinerary": [
+      { "day": 1, "title": "Hà Nội — Sa Pa — Bản Cát Cát", "content": "Di chuyển từ Hà Nội lên Sa Pa. Chiều tham quan bản Cát Cát." },
+      { "day": 2, "title": "Cáp treo Fansipan — Moana Sa Pa", "content": "Chinh phục đỉnh Fansipan và check-in cổng trời Moana." },
+      { "day": 3, "title": "Đèo Ô Quy Hồ — Trở về Hà Nội", "content": "Ngắm hoàng hôn trên đèo Ô Quy Hồ và lên xe về lại Hà Nội." }
+    ]
+  },
+  {
+    "id": "t5",
+    "slug": "da-lat-thanh-pho-ngan-hoa-3n2d",
+    "name": "Đà Lạt — Thành phố ngàn hoa & Langbiang 3N2Đ",
+    "dest": "da-lat",
+    "days": 3,
+    "price": 2990000,
+    "kidPrice": 2090000,
+    "rating": 4.8,
+    "reviews": 112,
+    "type": "nghi-duong",
+    "image": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #0F6FBD 0%, #1B3252 100%)",
+    "highlights": [
+      "Chinh phục đỉnh núi Langbiang bằng xe Jeep",
+      "Check-in Quảng trường Lâm Viên & Hồ Xuân Hương",
+      "Săn mây bình minh tại đồi chè Cầu Đất"
+    ],
+    "excludes": ["Xe Jeep Langbiang", "Chi phí cá nhân"],
+    "itinerary": [
+      { "day": 1, "title": "Đón sân bay — Hồ Xuân Hương", "content": "Check-in Quảng trường Lâm Viên và dạo chợ đêm Đà Lạt." },
+      { "day": 2, "title": "Đồi chè Cầu Đất — Langbiang", "content": "Săn mây Cầu Đất và ngắm toàn cảnh hồ Dankia từ đỉnh Langbiang." },
+      { "day": 3, "title": "Dinh Bảo Đại — Tiễn sân bay", "content": "Tham quan Dinh III Bảo Đại và tiễn sân bay Liên Khương." }
+    ]
+  },
+  {
+    "id": "t6",
+    "slug": "nha-trang-bien-xanh-vinwonders-3n2d",
+    "name": "Nha Trang — Biển xanh vẫy gọi & VinWonders 3N2Đ",
+    "dest": "nha-trang",
+    "days": 3,
+    "price": 3890000,
+    "kidPrice": 2690000,
+    "rating": 4.7,
+    "reviews": 76,
+    "type": "bien-dao",
+    "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #137DD0 0%, #6BAEE4 100%)",
+    "highlights": [
+      "Vui chơi công viên giải trí VinWonders trên đảo Hòn Tre",
+      "Tour cano Đảo Mún — Đảo Tằm tắm bùn khoáng nóng",
+      "Tham quan Tháp Bà Ponagar linh thiêng"
+    ],
+    "excludes": ["Tắm bùn VIP", "Chi phí cá nhân"],
+    "itinerary": [
+      { "day": 1, "title": "Sân bay Cam Ranh — Tháp Bà Ponagar", "content": "Đón sân bay, tham quan Tháp Bà và tắm biển Trần Phú." },
+      { "day": 2, "title": "Hòn Tằm tắm bùn — VinWonders", "content": "Tắm bùn khoáng Hòn Tằm và vui chơi tại VinWonders Nha Trang." },
+      { "day": 3, "title": "Chùa Long Sơn — Tiễn sân bay", "content": "Chiêm bái Chùa Long Sơn và tiễn ra sân bay Cam Ranh." }
+    ]
+  },
+  {
+    "id": "t7",
+    "slug": "ha-giang-hung-vi-dong-van-ma-pi-leng-3n2d",
+    "name": "Hà Giang — Kì vĩ Cao nguyên đá Đồng Văn 3N2Đ",
+    "dest": "ha-giang",
+    "days": 3,
+    "price": 3190000,
+    "kidPrice": 2190000,
+    "rating": 4.9,
+    "reviews": 105,
+    "type": "nui-trekking",
+    "image": "https://images.unsplash.com/photo-1508873696983-2df515122519?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #14273F 0%, #0F6FBD 100%)",
+    "highlights": [
+      "Chinh phục đèo Mã Pí Lèng — Nhất đại đỉnh đèo Việt Nam",
+      "Đi thuyền sông Nho Quế qua hẻm Tu Sản kì vĩ",
+      "Check-in Cột cờ Lũng Cú cực Bắc Tổ quốc"
+    ],
+    "excludes": ["Thuyền sông Nho Quế", "Xe máy thuê riêng"],
+    "itinerary": [
+      { "day": 1, "title": "Hà Nội — Hà Giang — Quản Bạ — Yên Minh", "content": "Ngắm núi đôi Quản Bạ và rừng thông Yên Minh." },
+      { "day": 2, "title": "Đồng Văn — Cột cờ Lũng Cú — Hẻm Tu Sản", "content": "Chinh phục Cột cờ Lũng Cú và hẻm Tu Sản tuyệt đẹp." },
+      { "day": 3, "title": "Mã Pí Lèng — Phố cổ Đồng Văn — Hà Nội", "content": "Dạo phố cổ Đồng Văn và lên xe về lại Hà Nội." }
+    ]
+  },
+  {
+    "id": "t8",
+    "slug": "quy-nhon-ky-co-eo-gio-3n2d",
+    "name": "Quy Nhơn — Kỳ Co — Eo Gió thiên đường biển xanh 3N2Đ",
+    "dest": "quy-nhon",
+    "days": 3,
+    "price": 3590000,
+    "kidPrice": 2490000,
+    "rating": 4.8,
+    "reviews": 67,
+    "type": "bien-dao",
+    "image": "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #0F6FBD 0%, #137DD0 100%)",
+    "highlights": [
+      "Check-in Eo Gió — Nơi ngắm hoàng hôn đẹp nhất Việt Nam",
+      "Cano đi bãi tắm Kỳ Co nước xanh ngọc bích",
+      "Thưởng thức bánh hỏi lòng heo & hải sản Đầm Thị Nại"
+    ],
+    "excludes": ["Vé xem show bài chòi", "Tiền tip"],
+    "itinerary": [
+      { "day": 1, "title": "Đón sân bay Phù Cát — Ghềnh Ráng Tiên Sa", "content": "Đón sân bay, viếng mộ Hàn Mặc Tử tại Ghềnh Ráng." },
+      { "day": 2, "title": "Bãi tắm Kỳ Co — Con đường đá Eo Gió", "content": "Đi cano sang bãi Kỳ Co tắm biển và ngắm Eo Gió." },
+      { "day": 3, "title": "Tháp Đôi — Mua sắm đặc sản — Tiễn sân bay", "content": "Tham quan Tháp Đôi Chăm Pa và mua bánh ít lá gai." }
+    ]
+  },
+  {
+    "id": "t9",
+    "slug": "hue-co-do-tram-mac-3n2d",
+    "name": "Huế — Cố đô trầm mặc & Lăng tẩm triều Nguyễn 3N2Đ",
+    "dest": "hue",
+    "days": 3,
+    "price": 2890000,
+    "kidPrice": 1990000,
+    "rating": 4.6,
+    "reviews": 52,
+    "type": "van-hoa",
+    "image": "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #1B3252 0%, #137DD0 100%)",
+    "highlights": [
+      "Tham quan Đại Nội Huế & Lăng Khải Định kiệt tác",
+      "Nghe ca Huế trên sông Hương về đêm",
+      "Thưởng thức bún bò Huế & bánh nậm lọc chuẩn vị"
+    ],
+    "excludes": ["Thuyền rồng sông Hương", "Cơm hến tự túc"],
+    "itinerary": [
+      { "day": 1, "title": "Đón sân bay Phú Bài — Chùa Thiên Mụ", "content": "Viếng Chùa Thiên Mụ cổ kính và đi du thuyền sông Hương." },
+      { "day": 2, "title": "Đại Nội Huế — Lăng Khải Định — Lăng Tự Đức", "content": "Khám phá Hoàng Thành Huế và các công trình lăng tẩm." },
+      { "day": 3, "title": "Chợ Đông Ba — Tiễn sân bay Phú Bài", "content": "Ghé chợ Đông Ba mua mè xửng, tôm chua và tiễn sân bay." }
+    ]
+  },
+  {
+    "id": "t10",
+    "slug": "ninh-binh-trang-an-bai-dinh-hang-mua-2n1d",
+    "name": "Ninh Bình — Tràng An — Bái Đính — Hang Múa 2N1Đ",
+    "dest": "ninh-binh",
+    "days": 2,
+    "price": 2190000,
+    "kidPrice": 1490000,
+    "rating": 4.8,
+    "reviews": 142,
+    "type": "sinh-thai",
+    "image": "https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #0F6FBD 0%, #3B90D6 100%)",
+    "highlights": [
+      "Đi thuyền nan khám phá quần thể di sản Tràng An",
+      "Leo 500 bậc đá chinh phục đỉnh Hang Múa",
+      "Viếng Chùa Bái Đính lớn nhất Đông Nam Á"
+    ],
+    "excludes": ["Xe điện Chùa Bái Đính", "Chi phí cá nhân"],
+    "itinerary": [
+      { "day": 1, "title": "Hà Nội — Chùa Bái Đính — Tràng An", "content": "Khởi hành từ Hà Nội đi Ninh Bình. Đi thuyền di sản Tràng An." },
+      { "day": 2, "title": "Hang Múa — Cố đô Hoa Lư — Hà Nội", "content": "Leo Hang Múa ngắm thung lũng Tam Cốc và về lại Hà Nội." }
+    ]
+  },
+  {
+    "id": "t11",
+    "slug": "can-tho-cho-noi-cai-rang-2n1d",
+    "name": "Cần Thơ — Sông nước miền Tây & Chợ nổi Cái Răng 2N1Đ",
+    "dest": "can-tho",
+    "days": 2,
+    "price": 1890000,
+    "kidPrice": 1290000,
+    "rating": 4.7,
+    "reviews": 61,
+    "type": "sinh-thai",
+    "image": "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #08355A 0%, #137DD0 100%)",
+    "highlights": [
+      "Trải nghiệm chợ nổi Cái Răng từ bình minh sáng sớm",
+      "Thưởng thức hủ tiếu pizza & trái cây miệt vườn Cồn Sơn",
+      "Check-in bến Ninh Kiều & cầu tình yêu Cần Thơ"
+    ],
+    "excludes": ["Trái cây mua về", "Tiền tip"],
+    "itinerary": [
+      { "day": 1, "title": "TP.HCM — Cần Thơ — Bến Ninh Kiều", "content": "Di chuyển về Cần Thơ, đi du thuyền sông Hậu ngắm bến Ninh Kiều." },
+      { "day": 2, "title": "Chợ nổi Cái Răng — Cồn Sơn — TP.HCM", "content": "Đi thuyền trải nghiệm chợ nổi và làm bánh dân gian Cồn Sơn." }
+    ]
+  },
+  {
+    "id": "t12",
+    "slug": "moc-chau-cao-nguyen-xanh-2n1d",
+    "name": "Mộc Châu — Cao nguyên xanh & Cầu kính Bạch Long 2N1Đ",
+    "dest": "moc-chau",
+    "days": 2,
+    "price": 1990000,
+    "kidPrice": 1390000,
+    "rating": 4.8,
+    "reviews": 79,
+    "type": "nghi-duong",
+    "image": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #14273F 0%, #6BAEE4 100%)",
+    "highlights": [
+      "Đi cầu kính đi bộ dài nhất thế giới Bạch Long",
+      "Check-in Đồi chè trái tim & Thung lũng mận Nà Ka",
+      "Thưởng thức bê chao Mộc Châu & cá suối nướng"
+    ],
+    "excludes": ["Vé cầu kính Bạch Long", "Chi phí hái mận"],
+    "itinerary": [
+      { "day": 1, "title": "Hà Nội — Đèo Thung Khe — Mộc Châu", "content": "Dừng chân đèo đá trắng Thung Khe. Chiều ghé đồi chè trái tim." },
+      { "day": 2, "title": "Cầu kính Bạch Long — Thác Dải Yếm — Hà Nội", "content": "Trải nghiệm Cầu kính Bạch Long và lên xe trở về Hà Nội." }
+    ]
+  },
+  {
+    "id": "t13",
+    "slug": "cao-bang-thac-ban-gioc-3n2d",
+    "name": "Cao Bằng — Hùng vĩ Thác Bản Giốc & Động Ngườm Ngao 3N2Đ",
+    "dest": "sa-pa",
+    "days": 3,
+    "price": 3290000,
+    "kidPrice": 2290000,
+    "rating": 4.9,
+    "reviews": 64,
+    "type": "nui-trekking",
+    "image": "https://images.unsplash.com/photo-1508873696983-2df515122519?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #0F6FBD 0%, #137DD0 100%)",
+    "highlights": [
+      "Chiêm ngưỡng Thác Bản Giốc — Thác nước tự nhiên đẹp nhất Đông Nam Á",
+      "Khám phá Động Ngườm Ngao kì ảo hàng triệu năm",
+      "Tham quan Khu di tích Pác Bố & suối Lê Nin"
+    ],
+    "excludes": ["Thuyền nan dưới chân thác", "Chi phí cá nhân"],
+    "itinerary": [
+      { "day": 1, "title": "Hà Nội — Thái Nguyên — Cao Bằng", "content": "Di chuyển từ Hà Nội đi Cao Bằng qua đèo Gió." },
+      { "day": 2, "title": "Thác Bản Giốc — Động Ngườm Ngao", "content": "Ngắm Thác Bản Giốc và khám phá lòng hang Động Ngườm Ngao." },
+      { "day": 3, "title": "Pác Bố — Suối Lê Nin — Hà Nội", "content": "Viếng di tích Pác Bố, ngắm suối Lê Nin và trở về Hà Nội." }
+    ]
+  },
+  {
+    "id": "t14",
+    "slug": "vung-tau-bien-xanh-nghi-duong-2n1d",
+    "name": "Vũng Tàu — Biển xanh nghỉ dưỡng & Tượng Chúa Giêsu 2N1Đ",
+    "dest": "nha-trang",
+    "days": 2,
+    "price": 1690000,
+    "kidPrice": 1190000,
+    "rating": 4.6,
+    "reviews": 48,
+    "type": "bien-dao",
+    "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #137DD0 0%, #9FCBEE 100%)",
+    "highlights": [
+      "Leo đỉnh Tượng Chúa Kito ngắm toàn cảnh thành phố biển",
+      "Tắm biển Bãi Sau sóng êm cát mịn",
+      "Thưởng thức bánh khọt Gốc Vú Sữa & lẩu cá đuối"
+    ],
+    "excludes": ["Chi phí thuê ghế dù Bãi Sau", "Tiền tip"],
+    "itinerary": [
+      { "day": 1, "title": "TP.HCM — Vũng Tàu — Bãi Sau", "content": "Di chuyển từ TP.HCM đến Vũng Tàu. Tắm biển Bãi Sau." },
+      { "day": 2, "title": "Tượng Chúa Kito — Ngọn Hải Đăng — TP.HCM", "content": "Leo Tượng Chúa Kito và check-in Ngọn Hải Đăng cổ nhất Việt Nam." }
+    ]
+  },
+  {
+    "id": "t15",
+    "slug": "phan-thiet-mui-ne-doi-cat-bay-2n1d",
+    "name": "Phan Thiết — Mũi Né — Đồi cát bay & Jeep Tour 2N1Đ",
+    "dest": "phu-quoc",
+    "days": 2,
+    "price": 2390000,
+    "kidPrice": 1690000,
+    "rating": 4.7,
+    "reviews": 83,
+    "type": "bien-dao",
+    "image": "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #0F6FBD 0%, #3B90D6 100%)",
+    "highlights": [
+      "Jeep tour ngắm bình minh trên Đồi Cát Trắng (Bàu Trắng)",
+      "Lội suối Tiên huyền ảo với thạch nhũ cát đỏ",
+      "Thưởng thức hải sản tươi tại làng chài Mũi Né"
+    ],
+    "excludes": ["Xe ATV địa hình", "Ván trượt cát"],
+    "itinerary": [
+      { "day": 1, "title": "TP.HCM — Phan Thiết — Suối Tiên", "content": "Di chuyển đi Phan Thiết qua cao tốc. Lội suối Tiên Mũi Né." },
+      { "day": 2, "title": "Jeep Tour Bàu Trắng — Làng Chài — TP.HCM", "content": "Đi xe Jeep ngắm bình minh Bàu Trắng và trở về TP.HCM." }
+    ]
+  },
+  {
+    "id": "t16",
+    "slug": "buon-ma-thuot-thac-dray-nur-3n2d",
+    "name": "Buôn Ma Thuột — Huyền thoại Thác Dray Nur & Cà phê 3N2Đ",
+    "dest": "da-lat",
+    "days": 3,
+    "price": 3390000,
+    "kidPrice": 2390000,
+    "rating": 4.8,
+    "reviews": 57,
+    "type": "nui-trekking",
+    "image": "https://images.unsplash.com/photo-1570789210967-2cac24afeb00?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #1B3252 0%, #0F6FBD 100%)",
+    "highlights": [
+      "Chiêm ngưỡng Thác Dray Nur hùng vĩ nhất Tây Nguyên",
+      "Tham quan Bảo tàng Thế giới Cà phê kiến trúc độc đáo",
+      "Cưỡi voi và chèo thuyền mộc trên Hồ Lắk"
+    ],
+    "excludes": ["Vé cưỡi voi Hồ Lắk", "Cà phê gọi thêm"],
+    "itinerary": [
+      { "day": 1, "title": "Đón sân bay Buôn Ma Thuột — Bảo tàng Cà phê", "content": "Đón sân bay, tham quan Bảo tàng Thế giới Cà phê." },
+      { "day": 2, "title": "Thác Dray Nur — Buôn Đôn — Hồ Lắk", "content": "Chiêm ngưỡng Thác Dray Nur và trải nghiệm văn hóa Buôn Đôn." },
+      { "day": 3, "title": "Chùa Khải Đoan — Tiễn sân bay", "content": "Tham quan Chùa Khải Đoan và tiễn quý khách ra sân bay." }
+    ]
+  },
+  {
+    "id": "t17",
+    "slug": "con-dao-huyen-thoai-khai-sang-3n2d",
+    "name": "Côn Đảo — Tĩnh lặng thiên nhiên & Di tích lịch sử 3N2Đ",
+    "dest": "phu-quoc",
+    "days": 3,
+    "price": 6990000,
+    "kidPrice": 4990000,
+    "rating": 4.9,
+    "reviews": 118,
+    "type": "van-hoa",
+    "image": "https://images.unsplash.com/photo-1540206395-68808572332f?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #08355A 0%, #137DD0 100%)",
+    "highlights": [
+      "Viếng nghĩa trang Hàng Dương & mộ Cô Sáu linh thiêng về đêm",
+      "Tham quan Nhà tù Côn Đảo (Chuồng Cọp Pháp - Mỹ)",
+      "Tắm biển Bãi Nhát & Đỉnh Tình Yêu"
+    ],
+    "excludes": ["Đồ lễ cúng Cô Sáu", "Chi phí cá nhân"],
+    "itinerary": [
+      { "day": 1, "title": "Đón sân bay Cỏ Ống — Nhà tù Côn Đảo", "content": "Đón sân bay Côn Đảo. Tham quan hệ thống di tích nhà tù." },
+      { "day": 2, "title": "Bãi Nhát — Viếng Mộ Cô Sáu Hàng Dương", "content": "Tắm biển Bãi Nhát. 23h00 viếng mộ Cô Sáu tại nghĩa trang Hàng Dương." },
+      { "day": 3, "title": "Chùa Nối Một — Tiễn sân bay Cỏ Ống", "content": "Chiêm bái Chùa Núi Một ngắm toàn cảnh biển Côn Đảo và tiễn sân bay." }
+    ]
+  },
+  {
+    "id": "t18",
+    "slug": "an-giang-rung-tram-tra-su-2n1d",
+    "name": "An Giang — Rừng tràm Trà Sư & Miếu Bà Chúa Xứ 2N1Đ",
+    "dest": "can-tho",
+    "days": 2,
+    "price": 2090000,
+    "kidPrice": 1490000,
+    "rating": 4.7,
+    "reviews": 53,
+    "type": "sinh-thai",
+    "image": "https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #0F6FBD 0%, #137DD0 100%)",
+    "highlights": [
+      "Đi tắc ráng rẽ bèo xanh khám phá Rừng tràm Trà Sư",
+      "Viếng Miếu Bà Chúa Xứ Núi Sam linh thiêng nổi tiếng",
+      "Thưởng thức lẩu mắm Châu Đốc & thốt nốt tươi"
+    ],
+    "excludes": ["Mua sắm mắm Châu Đốc", "Tiền tip"],
+    "itinerary": [
+      { "day": 1, "title": "TP.HCM — Châu Đốc — Miếu Bà Núi Sam", "content": "Di chuyển về An Giang, viếng Miếu Bà Chúa Xứ Núi Sam." },
+      { "day": 2, "title": "Rừng tràm Trà Sư — Chợ Châu Đốc — TP.HCM", "content": "Rẽ bèo xanh Rừng tràm Trà Sư và tiễn quý khách về TP.HCM." }
+    ]
+  },
+  {
+    "id": "t19",
+    "slug": "hai-phong-cat-ba-lan-ha-2n1d",
+    "name": "Hải Phòng — Cát Bà — Vịnh Lan Hạ chèo Kayak 2N1Đ",
+    "dest": "ha-long",
+    "days": 2,
+    "price": 2790000,
+    "kidPrice": 1890000,
+    "rating": 4.8,
+    "reviews": 71,
+    "type": "bien-dao",
+    "image": "https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #14273F 0%, #0F6FBD 100%)",
+    "highlights": [
+      "Du thuyền khám phá Vịnh Lan Hạ hoang sơ kỳ vĩ",
+      "Chèo thuyền Kayak qua hang Sáng Hang Tối",
+      "Thưởng thức Food Tour Bánh đa cua Hải Phòng chuẩn vị"
+    ],
+    "excludes": ["Cáp treo Phù Long", "Chi phí cá nhân"],
+    "itinerary": [
+      { "day": 1, "title": "Hà Nội — Hải Phòng — Đảo Cát Bà", "content": "Food Tour Hải Phòng sương sương và di chuyển sang đảo Cát Bà." },
+      { "day": 2, "title": "Vịnh Lan Hạ — Hang Sáng Tối — Hà Nội", "content": "Đi tàu tham quan Vịnh Lan Hạ, chèo Kayak và trở về Hà Nội." }
+    ]
+  },
+  {
+    "id": "t20",
+    "slug": "quang-binh-dong-thien-duong-phong-nha-3n2d",
+    "name": "Quảng Bình — Động Thiên Đường & Phong Nha 3N2Đ",
+    "dest": "ha-long",
+    "days": 3,
+    "price": 3790000,
+    "kidPrice": 2590000,
+    "rating": 4.9,
+    "reviews": 92,
+    "type": "nui-trekking",
+    "image": "https://images.unsplash.com/photo-1508873696983-2df515122519?q=80&w=800",
+    "gradient": "linear-gradient(135deg, #0F6FBD 0%, #137DD0 100%)",
+    "highlights": [
+      "Chiêm ngưỡng Động Thiên Đường — Hoàng cung trong lòng đất",
+      "Đi thuyền ngầm khám phá Động Phong Nha di sản thế giới",
+      "Vui chơi zipline suối nước Moọc trong xanh"
+    ],
+    "excludes": ["Zipline suối Moọc", "Vé máy bay khứ hồi"],
+    "itinerary": [
+      { "day": 1, "title": "Đón sân bay Đồng Hới — Biển Nhật Lệ", "content": "Đón quý khách tại Đồng Hới. Tắm biển Nhật Lệ thơ mộng." },
+      { "day": 2, "title": "Động Thiên Đường — Suối nước Moọc", "content": "Khám phá thạch nhũ Động Thiên Đường và quẩy suối Moọc." },
+      { "day": 3, "title": "Động Phong Nha — Tiễn sân bay Đồng Hới", "content": "Đi thuyền sông Son vào Động Phong Nha và tiễn quý khách." }
+    ]
+  }
+]
