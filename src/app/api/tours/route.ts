@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
   const dest = searchParams.get("dest") || "";
   const type = searchParams.get("type") || "";
   const minPrice = Number(searchParams.get("minPrice")) || 0;
-  const maxPrice = Number(searchParams.get("maxPrice")) || Infinity;
+  const maxPrice = Number(searchParams.get("maxPrice")) || 0;
   const duration = Number(searchParams.get("duration")) || 0;
   const minRating = Number(searchParams.get("minRating")) || 0;
   const sort = searchParams.get("sort") || "recommended";
@@ -38,9 +38,9 @@ export async function GET(request: NextRequest) {
   }
 
   // Price range filter
-  if (minPrice > 0 || maxPrice < Infinity) {
+  if (minPrice > 0 || maxPrice > 0) {
     filtered = filtered.filter(
-      (t) => t.price >= minPrice && t.price <= maxPrice
+      (t) => t.price >= minPrice && (maxPrice === 0 || t.price <= maxPrice)
     );
   }
 

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Tour, Review } from "@/types";
+import { Tour } from "@/types";
 import toursData from "@/data/mock/tours.json";
-import reviewsData from "@/data/mock/reviews.json";
+import { reviewsStore } from "@/lib/mock-store";
 
 export async function GET(
   request: NextRequest,
@@ -9,7 +9,6 @@ export async function GET(
 ) {
   const { slug } = await params;
   const tours = toursData as Tour[];
-  const reviews = reviewsData as Review[];
 
   const tour = tours.find((t) => t.slug === slug || t.id === slug);
 
@@ -20,7 +19,7 @@ export async function GET(
     );
   }
 
-  const tourReviews = reviews.filter((r) => r.tourId === tour.id);
+  const tourReviews = reviewsStore.filter((r) => r.tourId === tour.id);
 
   return NextResponse.json({
     ...tour,

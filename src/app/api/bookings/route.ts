@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Booking, Tour } from "@/types";
-import toursData from "@/data/mock/tours.json";
-import { bookingsStore } from "@/lib/bookings-store";
+import { Booking } from "@/types";
+import { toursStore, bookingsStore } from "@/lib/mock-store";
 
 export async function GET() {
   return NextResponse.json(bookingsStore);
@@ -40,12 +39,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const tours = toursData as Tour[];
-    const tour = tours.find((t) => t.id === tourId || t.slug === tourId);
+    const tour = toursStore.find((t) => t.id === tourId || t.slug === tourId);
+    if (!tour) {
+      return NextResponse.json(
+        { error: { code: "NOT_FOUND", message: "Tour không tồn tại" } },
+        { status: 404 }
+      );
+    }
 
-    const tourPrice = tour ? tour.price : 4290000;
-    const kidPrice = tour ? tour.kidPrice : 2990000;
-    const totalPrice = adults * tourPrice + children * kidPrice;
+    const numAdults = Number(adults) || 1;
+    const numChildren = Number(children) || 0;
+    const tourPrice = tour.price;
+    const kidPrice = tour.kidPrice;
+    const totalPrice = numAdults * tourPrice + numChildren * kidPrice;
 
     const newId = `b${bookingsStore.length + 1}`;
     const codeNum = String(bookingsStore.length + 124).padStart(6, "0");
@@ -54,12 +60,12 @@ export async function POST(request: NextRequest) {
     const newBooking: Booking = {
       id: newId,
       code,
-      tourId: tour?.id || tourId || "t1",
-      tourName: tour?.name || "Tour du lịch TripGo",
-      tourDest: tour?.dest || "da-nang",
+      tourId: tour.id,
+      tourName: tour.name,
+      tourDest: tour.dest,
       departDate: date || "2026-07-05",
-      adults: Number(adults),
-      children: Number(children),
+      adults: numAdults,
+      children: numChildren,
       totalPrice,
       paymentMethod,
       status: "pending",

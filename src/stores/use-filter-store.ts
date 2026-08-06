@@ -28,7 +28,7 @@ const initialFilters = {
   dest: "",
   type: "",
   minPrice: 0,
-  maxPrice: Infinity,
+  maxPrice: 0,
   duration: 0,
   minRating: 0,
   sort: "recommended",
