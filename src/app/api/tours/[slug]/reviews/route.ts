@@ -1,15 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Review } from "@/types";
-import reviewsData from "@/data/mock/reviews.json";
-
-const reviewsStore: Review[] = [...(reviewsData as Review[])];
+import { toursStore, reviewsStore } from "@/lib/mock-store";
 
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const { slug: tourId } = await params;
+    const { slug } = await params;
+
+    const tour = toursStore.find((t) => t.slug === slug || t.id === slug);
+    if (!tour) {
+      return NextResponse.json(
+        { error: { code: "NOT_FOUND", message: "Không tìm thấy tour du lịch" } },
+        { status: 404 }
+      );
+    }
+
     const body = await request.json();
     const { userName, rating, comment } = body;
 
@@ -38,7 +45,7 @@ export async function POST(
 
     const newReview: Review = {
       id: `r${reviewsStore.length + 1}`,
-      tourId,
+      tourId: tour.id,
       userName: userName.trim(),
       userInitials: initials,
       rating: Number(rating),

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { bookingsStore } from "@/lib/bookings-store";
+import { bookingsStore } from "@/lib/mock-store";
 
 export async function PATCH(
   request: NextRequest,

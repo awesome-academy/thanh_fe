@@ -11,7 +11,7 @@ export interface WishlistState {
 export const useWishlistStore = create<WishlistState>()(
   persist(
     (set, get) => ({
-      wishlistIds: ["t1", "t3"],
+      wishlistIds: [],
 
       toggleWishlist: (tourId: string) => {
         const current = get().wishlistIds;
@@ -32,7 +32,7 @@ export const useWishlistStore = create<WishlistState>()(
     }),
     {
       name: "tripgo_wishlist",
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => (typeof window !== "undefined" ? localStorage : ({} as Storage))),
     }
   )
 );
