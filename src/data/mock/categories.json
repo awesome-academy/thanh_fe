@@ -1,0 +1,27 @@
+[
+  {
+    "slug": "bien-dao",
+    "name": "Biển đảo",
+    "tourCount": 42
+  },
+  {
+    "slug": "van-hoa",
+    "name": "Văn hoá – di sản",
+    "tourCount": 35
+  },
+  {
+    "slug": "nghi-duong",
+    "name": "Nghỉ dưỡng",
+    "tourCount": 28
+  },
+  {
+    "slug": "nui-trekking",
+    "name": "Núi & trekking",
+    "tourCount": 19
+  },
+  {
+    "slug": "sinh-thai",
+    "name": "Sinh thái",
+    "tourCount": 14
+  }
+]
