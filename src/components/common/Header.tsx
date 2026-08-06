@@ -36,10 +36,10 @@ function HeaderNavContent({
         const className = mobile
           ? isActive
             ? 'block text-sm font-semibold text-white bg-navy-800/80 px-3 py-2 rounded-md border-l-4 border-cacao-500'
-            : 'block text-sm font-medium text-[#9FB0C4] hover:text-white px-3 py-2 transition-colors'
+            : 'block text-sm font-medium text-textSubtle hover:text-white px-3 py-2 transition-colors'
           : isActive
             ? 'text-white font-semibold relative after:absolute after:bottom-[-6px] after:left-0 after:right-0 after:h-[2px] after:bg-cacao-500'
-            : 'text-[#9FB0C4] hover:text-white transition-colors';
+            : 'text-textSubtle hover:text-white transition-colors';
 
         return (
           <Link
@@ -107,7 +107,7 @@ export default function Header() {
         <div className="flex items-center gap-3 sm:gap-4">
           <Link
             href="/wishlist"
-            className="flex items-center gap-1.5 text-[13px] text-[#9FB0C4] hover:text-white transition-colors relative"
+            className="flex items-center gap-1.5 text-[13px] text-textSubtle hover:text-white transition-colors relative"
             title="Tour yêu thích"
           >
             <svg
@@ -131,7 +131,7 @@ export default function Header() {
             <div className="hidden sm:flex items-center gap-3">
               <Link
                 href="/bookings"
-                className="text-xs text-[#9FB0C4] hover:text-white"
+                className="text-xs text-textSubtle hover:text-white"
               >
                 Đơn hàng
               </Link>
@@ -142,7 +142,7 @@ export default function Header() {
                 size="sm"
                 variant="outline"
                 onClick={logout}
-                className="text-xs border-navy-700 text-[#9FB0C4] hover:text-white hover:bg-navy-800"
+                className="text-xs border-navy-700 text-textSubtle hover:text-white hover:bg-navy-800"
               >
                 Đăng xuất
               </Button>
@@ -161,7 +161,7 @@ export default function Header() {
           {/* Mobile Hamburger Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-1.5 text-[#9FB0C4] hover:text-white focus:outline-none"
+            className="md:hidden p-1.5 text-textSubtle hover:text-white focus:outline-none"
             aria-label="Toggle menu"
           >
             <svg
