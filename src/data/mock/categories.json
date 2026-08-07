@@ -2,26 +2,31 @@
   {
     "slug": "bien-dao",
     "name": "Biển đảo",
+    "icon": "Palmtree",
     "tourCount": 42
   },
   {
     "slug": "van-hoa",
     "name": "Văn hoá – di sản",
+    "icon": "Landmark",
     "tourCount": 35
   },
   {
     "slug": "nghi-duong",
     "name": "Nghỉ dưỡng",
+    "icon": "HeartHandshake",
     "tourCount": 28
   },
   {
     "slug": "nui-trekking",
     "name": "Núi & trekking",
+    "icon": "Mountain",
     "tourCount": 19
   },
   {
     "slug": "sinh-thai",
     "name": "Sinh thái",
+    "icon": "Trees",
     "tourCount": 14
   }
 ]

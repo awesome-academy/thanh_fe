@@ -5,7 +5,7 @@
     "userName": "Trần Văn Nam",
     "userInitials": "VN",
     "rating": 5,
-    "comment": "Chuyến đi tuyệt vời! Du thuyền 5 sao sang trọng, hải sản tươi ngon, hướng dẫn viên chu đáo.",
+    "comment": "Chuyến đi tuyệt vời! Du thuyền 5 sao sang trọng, hải sản tươi ngon, hướng dẫn viên chu đáo và nhiệt tình.",
     "createdAt": "2026-05-20"
   },
   {
@@ -14,7 +14,52 @@
     "userName": "Lê Thị Mai",
     "userInitials": "TM",
     "rating": 5,
-    "comment": "Cầu Vàng Bà Nà Hills đẹp xuất sắc! Xe đưa đón đúng giờ, lịch trình hợp lý cho gia đình.",
+    "comment": "Cầu Vàng Bà Nà Hills đẹp xuất sắc! Xe đưa đón đúng giờ, lịch trình hợp lý cho gia đình có trẻ nhỏ.",
     "createdAt": "2026-05-28"
+  },
+  {
+    "id": "r3",
+    "tourId": "t3",
+    "userName": "Nguyễn Hoàng Long",
+    "userInitials": "HL",
+    "rating": 5,
+    "comment": "Tour cano 4 đảo Phú Quốc rất đáng tiền. Lặn ngắm san hô nước trong vắt, chụp ảnh sống ảo siêu đẹp!",
+    "createdAt": "2026-06-02"
+  },
+  {
+    "id": "r4",
+    "tourId": "t4",
+    "userName": "Phạm Thu Thảo",
+    "userInitials": "TT",
+    "rating": 5,
+    "comment": "Săn mây Sa Pa và chinh phục đỉnh Fansipan là trải nghiệm khó quên. Dịch vụ TripGo rất chuyên nghiệp.",
+    "createdAt": "2026-06-10"
+  },
+  {
+    "id": "r5",
+    "tourId": "t5",
+    "userName": "Vũ Minh Quân",
+    "userInitials": "MQ",
+    "rating": 5,
+    "comment": "Thời tiết Đà Lạt tuyệt vời, homestay đẹp và xe Jeep lên đỉnh Langbiang rất cảm giác mạnh. Rất hài lòng!",
+    "createdAt": "2026-06-15"
+  },
+  {
+    "id": "r6",
+    "tourId": "t7",
+    "userName": "Đặng Kim Anh",
+    "userInitials": "KA",
+    "rating": 5,
+    "comment": "Hà Giang hùng vĩ đến ngạt thở. Đi thuyền trên sông Nho Quế ngắm hẻm Tu Sản thực sự xuất sắc!",
+    "createdAt": "2026-06-22"
+  },
+  {
+    "id": "r7",
+    "tourId": "t10",
+    "userName": "Bùi Anh Tuấn",
+    "userInitials": "AT",
+    "rating": 5,
+    "comment": "Tràng An và Hang Múa đẹp như tranh vẽ. Hướng dẫn viên am hiểu lịch sử, nhiệt tình hỗ trợ đoàn chụp ảnh.",
+    "createdAt": "2026-07-01"
   }
 ]
