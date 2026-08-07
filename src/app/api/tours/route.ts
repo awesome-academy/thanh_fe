@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
 
   // Duration filter
   if (duration > 0) {
-    filtered = filtered.filter((t) => t.days === duration);
+    filtered = filtered.filter((t) => (duration === 4 ? t.days >= 4 : t.days === duration));
   }
 
   // Rating filter

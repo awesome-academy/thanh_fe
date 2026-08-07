@@ -1,4 +1,3 @@
-import React from 'react';
 import HeroSection from '@/components/homepage/HeroSection';
 import CategoriesGrid from '@/components/homepage/CategoriesGrid';
 import FeaturedTours from '@/components/homepage/FeaturedTours';

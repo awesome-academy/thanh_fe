@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
 import { useTours } from '@/hooks/use-tours';
 import { useWishlistStore } from '@/stores/use-wishlist-store';
