@@ -2,17 +2,18 @@
 
 import Link from 'next/link';
 import { useTours } from '@/hooks/use-tours';
+import { useDestinations } from '@/hooks/use-destinations';
 import { useWishlistStore } from '@/stores/use-wishlist-store';
-import destinationsData from '@/data/mock/destinations.json';
 import { Star, MapPin, Clock, Heart } from 'lucide-react';
-
-const destMap: Record<string, string> = Object.fromEntries(
-  destinationsData.map((d) => [d.slug, d.name])
-);
 
 export default function FeaturedTours() {
   const { data, isLoading } = useTours({ limit: 4, sort: 'rating' });
+  const { data: destinations } = useDestinations();
   const { wishlistIds, toggleWishlist } = useWishlistStore();
+
+  const destMap: Record<string, string> = Object.fromEntries(
+    (destinations || []).map((d) => [d.slug, d.name])
+  );
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
@@ -68,8 +69,9 @@ export default function FeaturedTours() {
                       e.stopPropagation();
                       toggleWishlist(tour.id);
                     }}
-                    className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-rose-500 hover:scale-110 transition-transform"
-                    aria-label="Thêm yêu thích"
+                    className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-rose-500 hover:scale-110 transition-transform cursor-pointer"
+                    aria-label={isFav ? 'Xóa khỏi danh sách yêu thích' : 'Thêm vào danh sách yêu thích'}
+                    aria-pressed={isFav}
                   >
                     <Heart className={`w-4 h-4 ${isFav ? 'fill-rose-500' : ''}`} />
                   </button>
