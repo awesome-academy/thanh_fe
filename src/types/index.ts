@@ -28,6 +28,7 @@ export interface Category {
   slug: string;
   name: string;
   tourCount: number;
+  icon?: string;
 }
 
 export interface Booking {
