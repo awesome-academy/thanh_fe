@@ -15,18 +15,10 @@ export default function Footer() {
           </span>
         </div>
         <div className="flex flex-wrap gap-6 text-[13px] text-textSubtle">
-          <Link href="/about" className="hover:text-white transition-colors">
-            Về TripGo
-          </Link>
-          <Link href="/contact" className="hover:text-white transition-colors">
-            Liên hệ
-          </Link>
-          <Link href="/terms" className="hover:text-white transition-colors">
-            Điều khoản
-          </Link>
-          <Link href="/privacy" className="hover:text-white transition-colors">
-            Chính sách hoàn huỷ
-          </Link>
+          <span className="cursor-default">Về TripGo</span>
+          <span className="cursor-default">Liên hệ</span>
+          <span className="cursor-default">Điều khoản</span>
+          <span className="cursor-default">Chính sách hoàn huỷ</span>
         </div>
       </div>
     </footer>
