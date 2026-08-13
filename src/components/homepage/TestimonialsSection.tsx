@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { useReviews } from '@/hooks/use-reviews';
 import { Star, Quote } from 'lucide-react';
 

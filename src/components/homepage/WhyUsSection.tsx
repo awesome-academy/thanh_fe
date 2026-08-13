@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { ShieldCheck, Clock, RefreshCw, Headphones } from 'lucide-react';
 
 const reasons = [

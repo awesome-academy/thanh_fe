@@ -44,9 +44,10 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  // Duration filter
+  // Duration filter (4+ days bucket)
+  const MAX_DURATION_BUCKET = 4;
   if (duration > 0) {
-    filtered = filtered.filter((t) => t.days === duration);
+    filtered = filtered.filter((t) => (duration >= MAX_DURATION_BUCKET ? t.days >= MAX_DURATION_BUCKET : t.days === duration));
   }
 
   // Rating filter
@@ -61,6 +62,8 @@ export async function GET(request: NextRequest) {
     filtered = [...filtered].sort((a, b) => b.price - a.price);
   } else if (sort === "rating") {
     filtered = [...filtered].sort((a, b) => b.rating - a.rating);
+  } else if (sort === "discount") {
+    filtered = [...filtered].sort((a, b) => b.rating - a.rating || b.reviews - a.reviews);
   }
 
   // Pagination
