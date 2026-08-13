@@ -33,6 +33,7 @@ export interface Category {
 
 export interface Booking {
   id: string;
+  userId?: string;
   code: string; // e.g. TG-2026-000123
   tourId: string;
   tourName: string;
@@ -64,6 +65,15 @@ export interface Review {
 
 export interface WishlistResponse {
   tourIds: string[];
+}
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  password?: string;
+  avatar?: string;
+  role: 'user' | 'admin';
 }
 
 export interface APIValidationError {

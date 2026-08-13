@@ -1,0 +1,18 @@
+[
+  {
+    "id": "u1",
+    "name": "Nguyễn Văn An",
+    "email": "user@tripgo.com",
+    "password": "password123",
+    "role": "user",
+    "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150"
+  },
+  {
+    "id": "u2",
+    "name": "Quản Trị Viên",
+    "email": "admin@tripgo.com",
+    "password": "password123",
+    "role": "admin",
+    "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150"
+  }
+]

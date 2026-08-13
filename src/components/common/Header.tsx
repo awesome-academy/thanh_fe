@@ -1,16 +1,23 @@
 'use client';
 
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import { useSession, signOut } from 'next-auth/react';
 import { useWishlistStore } from '@/stores/use-wishlist-store';
-import { useAuthStore } from '@/stores/use-auth-store';
 import { Button } from '@/components/ui/button';
 import {
   getActiveHeaderNav,
   headerNavItems,
   type HeaderNavKey,
 } from '@/components/common/header-navigation';
+import {
+  ShoppingBag,
+  Heart,
+  ShieldCheck,
+  LogOut,
+  ChevronDown,
+} from 'lucide-react';
 
 interface HeaderNavContentProps {
   activeKey: HeaderNavKey | null;
@@ -75,17 +82,41 @@ function HeaderNavLinks({
 }
 
 export default function Header() {
+  const router = useRouter();
+  const { data: session, status } = useSession();
+  const isAuthenticated = status === 'authenticated';
+  const user = session?.user;
+
   const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const wishlistIds = useWishlistStore((state) => state.wishlistIds);
-  const { user, isAuthenticated, logout } = useAuthStore();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleLogout = async () => {
+    setDropdownOpen(false);
+    await signOut({ redirect: false });
+    router.push('/');
+    router.refresh();
+  };
+
   const count = mounted ? wishlistIds.length : 0;
+  const userInitials = user?.name ? user.name.charAt(0).toUpperCase() : 'U';
 
   return (
     <header className="min-h-[64px] bg-navy-900 text-white sticky top-0 z-40 shadow-md">
@@ -110,42 +141,84 @@ export default function Header() {
             className="flex items-center gap-1.5 text-[13px] text-textSubtle hover:text-white transition-colors relative"
             title="Tour yêu thích"
           >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              className="text-cacao-500"
-            >
-              <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z" />
-            </svg>
+            <Heart className="w-5 h-5 text-cacao-500" />
             <span className="bg-cacao-500 text-white text-[11px] font-bold px-1.5 py-0.2 rounded-full font-mono tabular-nums">
               {count}
             </span>
           </Link>
 
           {mounted && isAuthenticated && user ? (
-            <div className="hidden sm:flex items-center gap-3">
-              <Link
-                href="/bookings"
-                className="text-xs text-textSubtle hover:text-white"
+            <div className="hidden sm:block relative" ref={dropdownRef}>
+              <button
+                type="button"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="flex items-center gap-2 text-xs font-medium text-white hover:opacity-90 transition-opacity p-1 rounded-full border border-navy-700 bg-navy-800/80 cursor-pointer"
               >
-                Đơn hàng
-              </Link>
-              <span className="text-xs font-medium text-white max-w-[100px] truncate">
-                {user.name}
-              </span>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={logout}
-                className="text-xs border-navy-700 text-textSubtle hover:text-white hover:bg-navy-800"
-              >
-                Đăng xuất
-              </Button>
+                {user.avatar || user.image ? (
+                  <img
+                    src={user.avatar || user.image || ''}
+                    alt={user.name || 'User'}
+                    className="w-7 h-7 rounded-full object-cover border border-cacao-400"
+                  />
+                ) : (
+                  <span className="w-7 h-7 rounded-full bg-cacao-600 text-white font-bold text-xs flex items-center justify-center">
+                    {userInitials}
+                  </span>
+                )}
+                <span className="max-w-[110px] truncate pl-0.5">{user.name}</span>
+                <ChevronDown className={`w-3.5 h-3.5 text-textSubtle transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* Dropdown Menu */}
+              {dropdownOpen && (
+                <div className="absolute right-0 mt-2 w-56 bg-surface-card border border-borderSubtle rounded-2xl shadow-2xl py-2 z-50 text-textStrong text-xs space-y-1">
+                  {/* User Profile Header Info */}
+                  <div className="px-4 py-2.5 border-b border-borderSubtle space-y-0.5">
+                    <p className="font-bold text-textStrong text-sm truncate">{user.name}</p>
+                    <p className="text-[11px] text-textSubtle truncate">{user.email}</p>
+                  </div>
+
+                  {/* Menu Links */}
+                  <Link
+                    href="/bookings"
+                    onClick={() => setDropdownOpen(false)}
+                    className="flex items-center gap-2 px-4 py-2 hover:bg-cacao-50/50 text-textBody hover:text-cacao-600 transition-colors font-medium"
+                  >
+                    <ShoppingBag className="w-4 h-4 text-cacao-500" />
+                    <span>Đơn hàng của tôi</span>
+                  </Link>
+
+                  <Link
+                    href="/wishlist"
+                    onClick={() => setDropdownOpen(false)}
+                    className="flex items-center gap-2 px-4 py-2 hover:bg-cacao-50/50 text-textBody hover:text-cacao-600 transition-colors font-medium"
+                  >
+                    <Heart className="w-4 h-4 text-rose-500" />
+                    <span>Danh sách yêu thích</span>
+                  </Link>
+
+                  {user.role === 'admin' && (
+                    <Link
+                      href="/admin/tours"
+                      onClick={() => setDropdownOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2 hover:bg-navy-50 text-navy-900 font-bold transition-colors border-t border-b border-borderSubtle my-1"
+                    >
+                      <ShieldCheck className="w-4 h-4 text-cacao-600" />
+                      <span>Trang quản trị Admin</span>
+                    </Link>
+                  )}
+
+                  {/* Logout Button */}
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="w-full flex items-center gap-2 px-4 py-2 hover:bg-rose-50 text-rose-600 transition-colors font-medium cursor-pointer text-left"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Đăng xuất</span>
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
             <Link href="/login" className="hidden sm:inline-block">
@@ -198,21 +271,33 @@ export default function Header() {
           <div className="pt-2 border-t border-navy-800">
             {mounted && isAuthenticated && user ? (
               <div className="space-y-2">
+                <div className="px-3 py-1.5 text-xs text-textSubtle">
+                  Tài khoản: <span className="font-bold text-white">{user.name}</span> ({user.role})
+                </div>
                 <Link
                   href="/bookings"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block text-sm font-medium text-white py-1.5"
+                  className="block text-sm font-medium text-white px-3 py-1.5 hover:bg-navy-800 rounded-md"
                 >
-                  Đơn hàng của tôi ({user.name})
+                  Đơn hàng của tôi
                 </Link>
+                {user.role === 'admin' && (
+                  <Link
+                    href="/admin/tours"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block text-sm font-bold text-cacao-400 px-3 py-1.5 hover:bg-navy-800 rounded-md"
+                  >
+                    Trang quản trị Admin
+                  </Link>
+                )}
                 <Button
                   size="sm"
                   variant="outline"
                   onClick={() => {
-                    logout();
+                    handleLogout();
                     setMobileMenuOpen(false);
                   }}
-                  className="w-full border-navy-700 text-slate-300 hover:bg-navy-800"
+                  className="w-full border-navy-700 text-slate-300 hover:bg-navy-800 mt-2"
                 >
                   Đăng xuất
                 </Button>

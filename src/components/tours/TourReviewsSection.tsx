@@ -59,7 +59,7 @@ export default function TourReviewsSection({ tourId }: TourReviewsSectionProps) 
               </div>
             </div>
             <p className="text-xs text-textBody leading-relaxed italic">
-              "{item.comment}"
+              &quot;{item.comment}&quot;
             </p>
           </div>
         ))}

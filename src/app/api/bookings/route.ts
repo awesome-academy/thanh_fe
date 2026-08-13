@@ -1,12 +1,52 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Booking } from "@/types";
 import { toursStore, bookingsStore } from "@/lib/mock-store";
+import { auth } from "@/auth";
+
+function isBookingOwner(
+  booking: Booking,
+  user: { id?: string; email?: string | null; role?: string }
+): boolean {
+  if (user.role === "admin") return true;
+
+  if (booking.userId) {
+    return Boolean(user.id && booking.userId === user.id);
+  }
+
+  if (user.email && booking.contact?.email) {
+    return booking.contact.email.toLowerCase() === user.email.toLowerCase();
+  }
+
+  return false;
+}
 
 export async function GET() {
-  return NextResponse.json(bookingsStore);
+  const session = await auth();
+  if (!session?.user) {
+    return NextResponse.json(
+      { error: { code: "UNAUTHORIZED", message: "Vui lòng đăng nhập để xem đơn hàng" } },
+      { status: 401 }
+    );
+  }
+
+  if (session.user.role === "admin") {
+    return NextResponse.json(bookingsStore);
+  }
+
+  const userBookings = bookingsStore.filter((b) => isBookingOwner(b, session.user));
+
+  return NextResponse.json(userBookings);
 }
 
 export async function POST(request: NextRequest) {
+  const session = await auth();
+  if (!session?.user) {
+    return NextResponse.json(
+      { error: { code: "UNAUTHORIZED", message: "Vui lòng đăng nhập để tạo đơn hàng" } },
+      { status: 401 }
+    );
+  }
+
   try {
     const body = await request.json();
     const { tourId, date, adults = 1, children = 0, paymentMethod = "momo", contact } = body;
@@ -59,6 +99,7 @@ export async function POST(request: NextRequest) {
 
     const newBooking: Booking = {
       id: newId,
+      userId: session.user.id,
       code,
       tourId: tour.id,
       tourName: tour.name,
