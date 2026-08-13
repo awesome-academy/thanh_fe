@@ -37,7 +37,7 @@ export default function TestimonialsSection() {
                   </div>
                   <Quote className="w-6 h-6 text-cacao-100" />
                 </div>
-                <p className="text-sm text-textBody leading-relaxed italic line-clamp-3">"{rev.comment}"</p>
+                <p className="text-sm text-textBody leading-relaxed italic line-clamp-3">&quot;{rev.comment}&quot;</p>
               </div>
 
               <div className="flex items-center gap-3 pt-4 border-t border-borderSubtle mt-4">
