@@ -6,6 +6,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { Tour } from '@/types';
 import { getTourBySlug } from '@/services/tour-service';
+import { useCreateBooking } from '@/hooks/use-bookings';
 import CheckoutStepper from '@/components/checkout/CheckoutStepper';
 import GuestInfoStep, { GuestInfoValues } from '@/components/checkout/GuestInfoStep';
 import PaymentStep, { PaymentMethodType } from '@/components/checkout/PaymentStep';
@@ -43,8 +44,9 @@ function CheckoutPageContent() {
   });
 
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethodType>('momo');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+
+  const { mutate: createBooking, isPending: isSubmitting } = useCreateBooking();
 
   // Sync user info if session finishes loading after page mount
   useEffect(() => {
@@ -118,44 +120,32 @@ function CheckoutPageContent() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleFinalBookingSubmit = async () => {
-    setIsSubmitting(true);
+  const handleFinalBookingSubmit = () => {
     setServerError(null);
-
-    try {
-      const res = await fetch('/api/bookings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          tourId: tour.id,
-          date,
-          adults,
-          children: childrenCount,
-          paymentMethod,
-          contact: {
-            fullName: guestInfo.fullName,
-            email: guestInfo.email,
-            phone: guestInfo.phone,
-            note: guestInfo.note || '',
-          },
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setServerError(data.error?.message || 'Không thể khởi tạo đơn hàng');
-        setIsSubmitting(false);
-        return;
+    createBooking(
+      {
+        tourId: tour.id,
+        date,
+        adults,
+        children: childrenCount,
+        paymentMethod,
+        contact: {
+          fullName: guestInfo.fullName,
+          email: guestInfo.email,
+          phone: guestInfo.phone,
+          note: guestInfo.note || '',
+        },
+      },
+      {
+        onSuccess: (data) => {
+          const bookingCode = data.code || `TG-2026-${data.id}`;
+          router.push(`/checkout/success/${encodeURIComponent(bookingCode)}`);
+        },
+        onError: (err) => {
+          setServerError(err.message || 'Không thể khởi tạo đơn hàng');
+        },
       }
-
-      // Redirect to Booking Success Page
-      const bookingCode = data.code || `TG-2026-${data.id}`;
-      router.push(`/checkout/success/${encodeURIComponent(bookingCode)}`);
-    } catch {
-      setServerError('Không thể kết nối đến máy chủ. Vui lòng thử lại.');
-      setIsSubmitting(false);
-    }
+    );
   };
 
   return (
