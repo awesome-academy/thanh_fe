@@ -21,6 +21,23 @@ export default function TourPagination({ currentPage, totalPages }: TourPaginati
     router.push(`${pathname}?${params.toString()}`, { scroll: true });
   };
 
+  // Fix UX & A11y: Truncate page window for large page count and add aria-current
+  const getPageNumbers = () => {
+    const pages: (number | string)[] = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      if (currentPage > 3) pages.push('...');
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+      for (let i = start; i <= end; i++) pages.push(i);
+      if (currentPage < totalPages - 2) pages.push('...');
+      pages.push(totalPages);
+    }
+    return pages;
+  };
+
   return (
     <div className="flex items-center justify-center gap-2 pt-8">
       <button
@@ -33,8 +50,16 @@ export default function TourPagination({ currentPage, totalPages }: TourPaginati
         <ChevronLeft className="w-5 h-5" />
       </button>
 
-      {[...Array(totalPages)].map((_, i) => {
-        const pageNum = i + 1;
+      {getPageNumbers().map((item, idx) => {
+        if (typeof item === 'string') {
+          return (
+            <span key={`ellipsis-${idx}`} className="px-1 text-xs text-textSubtle select-none">
+              ...
+            </span>
+          );
+        }
+
+        const pageNum = item;
         const isActive = pageNum === currentPage;
 
         return (
@@ -42,6 +67,7 @@ export default function TourPagination({ currentPage, totalPages }: TourPaginati
             key={pageNum}
             type="button"
             onClick={() => handlePageChange(pageNum)}
+            aria-current={isActive ? 'page' : undefined}
             className={`w-9 h-9 rounded-xl text-xs font-bold transition-all ${
               isActive
                 ? 'bg-cacao-600 text-white shadow-md'

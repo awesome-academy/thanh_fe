@@ -79,7 +79,9 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const wishlistIds = useWishlistStore((state) => state.wishlistIds);
-  const { user, isAuthenticated, logout } = useAuthStore();
+  const user = useAuthStore((state) => state.user);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const logout = useAuthStore((state) => state.logout);
 
   useEffect(() => {
     setMounted(true);
@@ -108,6 +110,7 @@ export default function Header() {
           <Link
             href="/wishlist"
             className="flex items-center gap-1.5 text-[13px] text-textSubtle hover:text-white transition-colors relative"
+            aria-label="Tour yêu thích"
             title="Tour yêu thích"
           >
             <svg
@@ -119,12 +122,15 @@ export default function Header() {
               strokeWidth="2"
               strokeLinecap="round"
               className="text-cacao-500"
+              aria-hidden="true"
             >
               <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z" />
             </svg>
-            <span className="bg-cacao-500 text-white text-[11px] font-bold px-1.5 py-0.2 rounded-full font-mono tabular-nums">
-              {count}
-            </span>
+            {count > 0 && (
+              <span className="bg-cacao-500 text-white text-[11px] font-bold px-1.5 py-0.5 rounded-full font-mono tabular-nums">
+                {count}
+              </span>
+            )}
           </Link>
 
           {mounted && isAuthenticated && user ? (
@@ -142,7 +148,7 @@ export default function Header() {
                 size="sm"
                 variant="outline"
                 onClick={logout}
-                className="text-xs border-navy-700 text-textSubtle hover:text-white hover:bg-navy-800"
+                className="text-xs bg-transparent border-navy-700 text-textSubtle hover:text-white hover:bg-navy-800"
               >
                 Đăng xuất
               </Button>
@@ -161,8 +167,10 @@ export default function Header() {
           {/* Mobile Hamburger Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-1.5 text-textSubtle hover:text-white focus:outline-none"
-            aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
+            aria-label={mobileMenuOpen ? 'Đóng menu' : 'Mở menu'}
+            className="md:hidden p-1.5 text-textSubtle hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
           >
             <svg
               width="22"
@@ -185,7 +193,7 @@ export default function Header() {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-navy-950 border-t border-navy-800 px-4 py-4 space-y-3">
+        <div id="mobile-menu" className="md:hidden bg-navy-950 border-t border-navy-800 px-4 py-4 space-y-3">
           <Suspense
             fallback={<HeaderNavContent activeKey={null} mobile />}
           >
@@ -212,7 +220,7 @@ export default function Header() {
                     logout();
                     setMobileMenuOpen(false);
                   }}
-                  className="w-full border-navy-700 text-slate-300 hover:bg-navy-800"
+                  className="w-full bg-transparent border-navy-700 text-textSubtle hover:text-white hover:bg-navy-800"
                 >
                   Đăng xuất
                 </Button>
