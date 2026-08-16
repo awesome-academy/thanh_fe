@@ -84,7 +84,7 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
 
       {/* Image Gallery */}
       <TourGallery
-        images={tour.image ? [tour.image] : []}
+        images={tour.images}
         gradient={tour.gradient}
         tourName={tour.name}
         categoryName={tour.type?.toUpperCase() || 'DU LỊCH'}
@@ -95,12 +95,13 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
         {/* Left Column (2/3) */}
         <div className="lg:col-span-2 space-y-8">
           <TourOverview
-            description={tour.name}
+            description={tour.description}
             highlights={tour.highlights}
+            included={tour.included}
             excluded={tour.excludes}
           />
           <TourItinerary daysCount={tour.days} itinerary={tour.itinerary} />
-          <TourReviewsSection tourId={tour.id} />
+          <TourReviewsSection tourId={tour.id} rating={tour.rating} />
         </div>
 
         {/* Right Column (1/3) Sticky Booking Widget */}

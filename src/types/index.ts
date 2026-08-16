@@ -2,6 +2,7 @@ export interface Tour {
   id: string;
   slug: string;
   name: string;
+  description: string;
   dest: string;
   days: number;
   price: number;
@@ -10,8 +11,10 @@ export interface Tour {
   reviews: number;
   type: string;
   image?: string;
+  images: string[];
   gradient?: string;
   highlights: string[];
+  included: string[];
   excludes: string[];
   itinerary: { day: number; title: string; content: string }[];
 }

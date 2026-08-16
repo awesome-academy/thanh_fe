@@ -1,31 +1,17 @@
 import { CheckCircle2, XCircle, Sparkles } from 'lucide-react';
 
 interface TourOverviewProps {
-  highlights?: string[];
-  included?: string[];
-  excluded?: string[];
-  description?: string;
+  description: string;
+  highlights: string[];
+  included: string[];
+  excluded: string[];
 }
 
 export default function TourOverview({
-  highlights = [
-    'Khám phá thắng cảnh thiên nhiên đạt di sản thế giới',
-    'Thưởng thức ẩm thực địa phương đặc sắc chuẩn 4 sao',
-    'Hướng dẫn viên chuyên nghiệp suốt tuyến nhiệt tình',
-    'Bảo hiểm du lịch trọn gói đến 100.000.000đ/vụ',
-  ],
-  included = [
-    'Xe đưa đón chất lượng cao suốt chương trình',
-    'Vé tham quan tất cả các điểm theo lịch trình',
-    'Các bữa ăn theo tiêu chuẩn chương trình',
-    'Khách sạn 4 sao trung tâm tiện nghi',
-  ],
-  excluded = [
-    'Chi phí cá nhân ngoài chương trình (giặt ủi, điện thoại)',
-    'Tiền bồi dưỡng (Tip) cho HDV và tài xế',
-    'Thuế VAT 8% (nếu yêu cầu xuất hóa đơn)',
-  ],
-  description = 'Chuyến du lịch tuyệt vời giúp bạn thư giãn và tận hưởng những khoảnh khắc đáng nhớ bên gia đình và người thân.',
+  description,
+  highlights,
+  included,
+  excluded,
 }: TourOverviewProps) {
   return (
     <div className="space-y-8 bg-surface-card border border-borderSubtle rounded-2xl p-6 shadow-sm">
