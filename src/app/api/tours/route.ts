@@ -44,10 +44,11 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  // Duration filter (4+ days bucket)
-  const MAX_DURATION_BUCKET = 4;
+  const OPEN_ENDED_DURATION = 4;
   if (duration > 0) {
-    filtered = filtered.filter((t) => (duration >= MAX_DURATION_BUCKET ? t.days >= MAX_DURATION_BUCKET : t.days === duration));
+    filtered = filtered.filter((t) =>
+      duration >= OPEN_ENDED_DURATION ? t.days >= duration : t.days === duration
+    );
   }
 
   // Rating filter

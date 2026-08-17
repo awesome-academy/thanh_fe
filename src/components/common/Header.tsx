@@ -93,6 +93,7 @@ export default function Header() {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const wishlistIds = useWishlistStore((state) => state.wishlistIds);
+  const setWishlist = useWishlistStore((state) => state.setWishlist);
 
   useEffect(() => {
     setMounted(true);
@@ -110,6 +111,7 @@ export default function Header() {
 
   const handleLogout = async () => {
     setDropdownOpen(false);
+    setWishlist([]);
     await signOut({ redirect: false });
     router.push('/');
     router.refresh();
