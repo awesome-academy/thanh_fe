@@ -14,7 +14,7 @@ interface TourDetailPageProps {
 
 export async function generateMetadata({ params }: TourDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const tour = await getTourBySlug(slug);
+  const tour = getTourBySlug(slug);
 
   if (!tour) {
     return { title: 'Không tìm thấy tour | TripGo' };
@@ -33,10 +33,8 @@ export async function generateMetadata({ params }: TourDetailPageProps): Promise
 
 export default async function TourDetailPage({ params }: TourDetailPageProps) {
   const { slug } = await params;
-  const [tour, destMap] = await Promise.all([
-    getTourBySlug(slug),
-    getDestinationsMap(),
-  ]);
+  const tour = getTourBySlug(slug);
+  const destMap = getDestinationsMap();
 
   if (!tour) {
     notFound();

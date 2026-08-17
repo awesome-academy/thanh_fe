@@ -1,43 +1,102 @@
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 import { Booking } from "@/types";
 import { toursStore, bookingsStore } from "@/lib/mock-store";
+import { auth } from "@/auth";
+
+const MAX_GUESTS_PER_TYPE = 20;
+
+const bookingSchema = z.object({
+  tourId: z.string().min(1, "Thiếu thông tin tour"),
+  date: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Ngày khởi hành không đúng định dạng")
+    .refine((value) => value >= new Date().toISOString().split("T")[0], {
+      message: "Ngày khởi hành không được ở quá khứ",
+    }),
+  adults: z.number().int().min(1, "Cần tối thiểu 1 người lớn").max(MAX_GUESTS_PER_TYPE),
+  children: z.number().int().min(0).max(MAX_GUESTS_PER_TYPE),
+  paymentMethod: z.enum(["momo", "vnpay", "transfer", "card"], {
+    message: "Phương thức thanh toán không hợp lệ",
+  }),
+  contact: z.object({
+    fullName: z.string().trim().min(1, "Họ và tên không được để trống"),
+    email: z.string().email("Email không hợp lệ"),
+    phone: z
+      .string()
+      .transform((value) => value.replace(/\s+/g, ""))
+      .refine((value) => /^[0-9]{9,11}$/.test(value), "Số điện thoại không hợp lệ"),
+    note: z.string().optional(),
+  }),
+});
+
+function isBookingOwner(
+  booking: Booking,
+  user: { id?: string; email?: string | null; role?: string }
+): boolean {
+  if (user.role === "admin") return true;
+
+  if (booking.userId) {
+    return Boolean(user.id && booking.userId === user.id);
+  }
+
+  if (user.email && booking.contact?.email) {
+    return booking.contact.email.toLowerCase() === user.email.toLowerCase();
+  }
+
+  return false;
+}
 
 export async function GET() {
-  return NextResponse.json(bookingsStore);
+  const session = await auth();
+  if (!session?.user) {
+    return NextResponse.json(
+      { error: { code: "UNAUTHORIZED", message: "Vui lòng đăng nhập để xem đơn hàng" } },
+      { status: 401 }
+    );
+  }
+
+  if (session.user.role === "admin") {
+    return NextResponse.json(bookingsStore);
+  }
+
+  const userBookings = bookingsStore.filter((b) => isBookingOwner(b, session.user));
+
+  return NextResponse.json(userBookings);
 }
 
 export async function POST(request: NextRequest) {
+  const session = await auth();
+  if (!session?.user) {
+    return NextResponse.json(
+      { error: { code: "UNAUTHORIZED", message: "Vui lòng đăng nhập để tạo đơn hàng" } },
+      { status: 401 }
+    );
+  }
+
   try {
-    const body = await request.json();
-    const { tourId, date, adults = 1, children = 0, paymentMethod = "momo", contact } = body;
+    const parsed = bookingSchema.safeParse(await request.json());
 
-    const fields: Record<string, string> = {};
+    if (!parsed.success) {
+      const fields: Record<string, string> = {};
+      for (const issue of parsed.error.issues) {
+        const field = String(issue.path[issue.path.length - 1] ?? "form");
+        fields[field] ??= issue.message;
+      }
 
-    if (!contact?.fullName?.trim()) {
-      fields.fullName = "Họ và tên không được để trống";
-    }
-
-    if (!contact?.email?.includes("@")) {
-      fields.email = "Email không hợp lệ";
-    }
-
-    const phoneClean = contact?.phone?.replace(/\s+/g, "") || "";
-    if (!/^[0-9]{9,11}$/.test(phoneClean)) {
-      fields.phone = "Số điện thoại không hợp lệ";
-    }
-
-    if (Object.keys(fields).length > 0) {
       return NextResponse.json(
         {
           error: {
             code: "VALIDATION",
-            message: "Dữ liệu không hợp lệ",
+            message: parsed.error.issues[0]?.message || "Dữ liệu không hợp lệ",
             fields,
           },
         },
         { status: 422 }
       );
     }
+
+    const { tourId, date, adults, children, paymentMethod, contact } = parsed.data;
 
     const tour = toursStore.find((t) => t.id === tourId || t.slug === tourId);
     if (!tour) {
@@ -47,11 +106,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const numAdults = Number(adults) || 1;
-    const numChildren = Number(children) || 0;
-    const tourPrice = tour.price;
-    const kidPrice = tour.kidPrice;
-    const totalPrice = numAdults * tourPrice + numChildren * kidPrice;
+    const totalPrice = adults * tour.price + children * tour.kidPrice;
 
     const newId = `b${bookingsStore.length + 1}`;
     const codeNum = String(bookingsStore.length + 124).padStart(6, "0");
@@ -59,13 +114,14 @@ export async function POST(request: NextRequest) {
 
     const newBooking: Booking = {
       id: newId,
+      userId: session.user.id,
       code,
       tourId: tour.id,
       tourName: tour.name,
       tourDest: tour.dest,
-      departDate: date || "2026-07-05",
-      adults: numAdults,
-      children: numChildren,
+      departDate: date,
+      adults,
+      children,
       totalPrice,
       paymentMethod,
       status: "pending",
