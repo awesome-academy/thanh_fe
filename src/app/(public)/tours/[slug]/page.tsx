@@ -100,7 +100,7 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
             excluded={tour.excludes}
           />
           <TourItinerary daysCount={tour.days} itinerary={tour.itinerary} />
-          <TourReviewsSection tourId={tour.id} />
+          <TourReviewsSection tourId={tour.id} slug={tour.slug} />
         </div>
 
         {/* Right Column (1/3) Sticky Booking Widget */}

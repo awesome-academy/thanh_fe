@@ -1,12 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Review } from "@/types";
 import { toursStore, reviewsStore } from "@/lib/mock-store";
+import { auth } from "@/auth";
 
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
+    const session = await auth();
+    if (!session?.user) {
+      return NextResponse.json(
+        { error: { code: "UNAUTHORIZED", message: "Vui lòng đăng nhập để gửi đánh giá" } },
+        { status: 401 }
+      );
+    }
+
     const { slug } = await params;
 
     const tour = toursStore.find((t) => t.slug === slug || t.id === slug);
@@ -20,16 +29,21 @@ export async function POST(
     const body = await request.json();
     const { userName, rating, comment } = body;
 
-    if (!userName || !rating || !comment) {
+    const trimmedName = typeof userName === 'string' ? userName.trim() : '';
+    const trimmedComment = typeof comment === 'string' ? comment.trim() : '';
+    const parsedRating = Number(rating);
+    const isValidRating = Number.isInteger(parsedRating) && parsedRating >= 1 && parsedRating <= 5;
+
+    if (!trimmedName || !isValidRating || !trimmedComment) {
       return NextResponse.json(
         {
           error: {
             code: "VALIDATION",
             message: "Thiếu thông tin đánh giá",
             fields: {
-              userName: !userName ? "Vui lòng nhập tên" : "",
-              rating: !rating ? "Vui lòng chọn số sao" : "",
-              comment: !comment ? "Vui lòng nhập nhận xét" : "",
+              userName: !trimmedName ? "Vui lòng nhập tên" : "",
+              rating: !isValidRating ? "Vui lòng chọn số sao (1-5)" : "",
+              comment: !trimmedComment ? "Vui lòng nhập nhận xét" : "",
             },
           },
         },
@@ -37,7 +51,7 @@ export async function POST(
       );
     }
 
-    const nameParts = userName.trim().split(" ");
+    const nameParts = trimmedName.split(" ");
     const initials =
       nameParts.length > 1
         ? `${nameParts[0][0]}${nameParts[nameParts.length - 1][0]}`.toUpperCase()
@@ -46,10 +60,10 @@ export async function POST(
     const newReview: Review = {
       id: `r${reviewsStore.length + 1}`,
       tourId: tour.id,
-      userName: userName.trim(),
+      userName: trimmedName,
       userInitials: initials,
-      rating: Number(rating),
-      comment: comment.trim(),
+      rating: parsedRating,
+      comment: trimmedComment,
       createdAt: new Date().toISOString().split("T")[0],
     };
 

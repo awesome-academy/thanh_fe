@@ -1,13 +1,15 @@
 'use client';
 
 import { useReviews } from '@/hooks/use-reviews';
+import ReviewSubmitForm from '@/components/tours/ReviewSubmitForm';
 import { Star, MessageSquare, ShieldCheck } from 'lucide-react';
 
 interface TourReviewsSectionProps {
   tourId: string;
+  slug: string;
 }
 
-export default function TourReviewsSection({ tourId }: TourReviewsSectionProps) {
+export default function TourReviewsSection({ tourId, slug }: TourReviewsSectionProps) {
   const { data: reviews } = useReviews();
 
   // Filter reviews belonging strictly to this tour, fallback to top reviews if none specifically bound
@@ -19,6 +21,7 @@ export default function TourReviewsSection({ tourId }: TourReviewsSectionProps) 
     : '4.8';
 
   return (
+    <div className="space-y-6">
     <div className="space-y-6 bg-surface-card border border-borderSubtle rounded-2xl p-6 shadow-sm">
       <div className="flex items-center justify-between pb-4 border-b border-borderSubtle">
         <h3 className="text-lg font-bold text-textStrong flex items-center gap-2">
@@ -64,6 +67,10 @@ export default function TourReviewsSection({ tourId }: TourReviewsSectionProps) 
           </div>
         ))}
       </div>
+    </div>
+
+      {/* Review Submission Form */}
+      <ReviewSubmitForm slug={slug} tourId={tourId} />
     </div>
   );
 }
