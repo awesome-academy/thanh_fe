@@ -21,6 +21,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const email = String(credentials.email).toLowerCase();
         const password = String(credentials.password);
 
+        // TODO: hash password (bcrypt) khi chuyển sang DB thật — mock store đang lưu plaintext
         const user = usersStore.find(
           (u) => u.email.toLowerCase() === email && u.password === password
         );

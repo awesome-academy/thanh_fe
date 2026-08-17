@@ -80,7 +80,7 @@ export default function HeroSection() {
               <option value="">Tất cả số ngày</option>
               <option value="2">2 ngày 1 đêm</option>
               <option value="3">3 ngày 2 đêm</option>
-              <option value="4">4 ngày 3 đêm</option>
+              <option value="4">4 ngày trở lên</option>
             </select>
           </div>
 

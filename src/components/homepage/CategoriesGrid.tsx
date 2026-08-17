@@ -3,13 +3,12 @@
 import React from 'react';
 import Link from 'next/link';
 import { useCategories } from '@/hooks/use-categories';
-import * as Icons from 'lucide-react';
+import { Palmtree, Landmark, HeartHandshake, Mountain, Trees } from 'lucide-react';
+
+const CATEGORY_ICONS = { Palmtree, Landmark, HeartHandshake, Mountain, Trees } as const;
 
 function DynamicCategoryIcon({ iconName }: { iconName?: string }) {
-  const IconComponent = iconName
-    ? (Icons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[iconName] || Icons.Palmtree
-    : Icons.Palmtree;
-
+  const IconComponent = CATEGORY_ICONS[iconName as keyof typeof CATEGORY_ICONS] ?? Palmtree;
   return <IconComponent className="w-6 h-6 text-cacao-500" />;
 }
 

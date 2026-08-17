@@ -93,6 +93,7 @@ export default function Header() {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const wishlistIds = useWishlistStore((state) => state.wishlistIds);
+  const setWishlist = useWishlistStore((state) => state.setWishlist);
 
   useEffect(() => {
     setMounted(true);
@@ -110,6 +111,7 @@ export default function Header() {
 
   const handleLogout = async () => {
     setDropdownOpen(false);
+    setWishlist([]);
     await signOut({ redirect: false });
     router.push('/');
     router.refresh();
@@ -139,12 +141,15 @@ export default function Header() {
           <Link
             href="/wishlist"
             className="flex items-center gap-1.5 text-[13px] text-textSubtle hover:text-white transition-colors relative"
+            aria-label="Tour yêu thích"
             title="Tour yêu thích"
           >
-            <Heart className="w-5 h-5 text-cacao-500" />
-            <span className="bg-cacao-500 text-white text-[11px] font-bold px-1.5 py-0.2 rounded-full font-mono tabular-nums">
-              {count}
-            </span>
+            <Heart className="w-5 h-5 text-cacao-500" aria-hidden="true" />
+            {count > 0 && (
+              <span className="bg-cacao-500 text-white text-[11px] font-bold px-1.5 py-0.5 rounded-full font-mono tabular-nums">
+                {count}
+              </span>
+            )}
           </Link>
 
           {mounted && isAuthenticated && user ? (
@@ -234,8 +239,10 @@ export default function Header() {
           {/* Mobile Hamburger Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-1.5 text-textSubtle hover:text-white focus:outline-none"
-            aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
+            aria-label={mobileMenuOpen ? 'Đóng menu' : 'Mở menu'}
+            className="md:hidden p-1.5 text-textSubtle hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
           >
             <svg
               width="22"
@@ -258,7 +265,7 @@ export default function Header() {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-navy-950 border-t border-navy-800 px-4 py-4 space-y-3">
+        <div id="mobile-menu" className="md:hidden bg-navy-950 border-t border-navy-800 px-4 py-4 space-y-3">
           <Suspense
             fallback={<HeaderNavContent activeKey={null} mobile />}
           >
@@ -297,7 +304,7 @@ export default function Header() {
                     handleLogout();
                     setMobileMenuOpen(false);
                   }}
-                  className="w-full border-navy-700 text-slate-300 hover:bg-navy-800 mt-2"
+                  className="w-full bg-transparent border-navy-700 text-textSubtle hover:text-white hover:bg-navy-800 mt-2"
                 >
                   Đăng xuất
                 </Button>

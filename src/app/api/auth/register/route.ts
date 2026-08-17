@@ -37,6 +37,7 @@ export async function POST(request: NextRequest) {
       id: `u_${Date.now()}`,
       name: name.trim(),
       email: cleanEmail,
+      // TODO: hash password (bcrypt) khi chuyển sang DB thật — mock store đang lưu plaintext
       password,
       role: "user",
       avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name)}`,
