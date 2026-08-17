@@ -2,15 +2,16 @@
 
 import Link from 'next/link';
 import { useTours } from '@/hooks/use-tours';
-import destinationsData from '@/data/mock/destinations.json';
+import { useDestinations } from '@/hooks/use-destinations';
 import TourCard from '@/components/tours/TourCard';
-
-const destMap: Record<string, string> = Object.fromEntries(
-  destinationsData.map((d) => [d.slug, d.name])
-);
 
 export default function FeaturedTours() {
   const { data, isLoading } = useTours({ limit: 4, sort: 'rating' });
+  const { data: destinations } = useDestinations();
+
+  const destMap: Record<string, string> = Object.fromEntries(
+    (destinations || []).map((d) => [d.slug, d.name])
+  );
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12">

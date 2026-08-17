@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { MapPin, Clock, Star, Heart } from 'lucide-react';
@@ -17,7 +17,10 @@ export default function TourCard({ tour, destinationName }: TourCardProps) {
   const wishlistIds = useWishlistStore((state) => state.wishlistIds);
   const toggleWishlist = useWishlistStore((state) => state.toggleWishlist);
 
-  const isFav = wishlistIds.includes(tour.id);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  const isFav = mounted && wishlistIds.includes(tour.id);
   const destName = destinationName || tour.dest;
 
   return (
