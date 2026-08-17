@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 import { useWishlistStore } from '@/stores/use-wishlist-store';
@@ -155,10 +156,13 @@ export default function Header() {
                 className="flex items-center gap-2 text-xs font-medium text-white hover:opacity-90 transition-opacity p-1 rounded-full border border-navy-700 bg-navy-800/80 cursor-pointer"
               >
                 {user.avatar || user.image ? (
-                  <img
+                  <Image
                     src={user.avatar || user.image || ''}
                     alt={user.name || 'User'}
-                    className="w-7 h-7 rounded-full object-cover border border-cacao-400"
+                    width={28}
+                    height={28}
+                    className="rounded-full object-cover border border-cacao-400"
+                    unoptimized
                   />
                 ) : (
                   <span className="w-7 h-7 rounded-full bg-cacao-600 text-white font-bold text-xs flex items-center justify-center">

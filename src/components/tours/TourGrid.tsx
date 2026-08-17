@@ -1,9 +1,11 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Tour } from '@/types';
 import { useWishlistStore } from '@/stores/use-wishlist-store';
 import { useDestinations } from '@/hooks/use-destinations';
+import { TOUR_IMAGE_BLUR } from '@/lib/image-placeholder';
 import { Star, MapPin, Clock, Heart, SearchX, RotateCcw, AlertTriangle } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
 
@@ -99,10 +101,14 @@ export default function TourGrid({ tours, isLoading, isError = false, refetch }:
             {/* Tour Image Header */}
             <div className="relative h-48 bg-navy-900 overflow-hidden">
               {tour.image ? (
-                <img
+                <Image
                   src={tour.image}
                   alt={tour.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  placeholder="blur"
+                  blurDataURL={TOUR_IMAGE_BLUR}
                 />
               ) : (
                 <div

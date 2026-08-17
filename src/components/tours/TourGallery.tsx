@@ -1,7 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Camera, X } from 'lucide-react';
+import { TOUR_IMAGE_BLUR } from '@/lib/image-placeholder';
 
 interface TourGalleryProps {
   images?: string[];
@@ -44,10 +46,15 @@ export default function TourGallery({
         onClick={() => setLightboxImage(currentMainImage)}
       >
         {currentMainImage ? (
-          <img
+          <Image
             src={currentMainImage}
             alt={tourName}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            fill
+            priority
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            sizes="(max-width: 640px) 100vw, 80vw"
+            placeholder="blur"
+            blurDataURL={TOUR_IMAGE_BLUR}
           />
         ) : (
           <div
@@ -84,10 +91,14 @@ export default function TourGallery({
                   : 'border-borderSubtle opacity-70 hover:opacity-100 hover:border-cacao-300'
               }`}
             >
-              <img
+              <Image
                 src={thumb}
-                alt={`${tourName} thumb ${idx + 1}`}
-                className="w-full h-full object-cover"
+                alt={`${tourName} ảnh ${idx + 1}`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 25vw, 160px"
+                placeholder="blur"
+                blurDataURL={TOUR_IMAGE_BLUR}
               />
             </button>
           );
@@ -104,11 +115,15 @@ export default function TourGallery({
           >
             <X className="w-6 h-6" />
           </button>
-          <img
-            src={lightboxImage}
-            alt={tourName}
-            className="max-w-full max-h-[85vh] rounded-2xl object-contain shadow-2xl"
-          />
+          <div className="relative max-w-4xl w-full max-h-[85vh] aspect-video rounded-2xl overflow-hidden shadow-2xl">
+            <Image
+              src={lightboxImage}
+              alt={tourName}
+              fill
+              className="object-contain"
+              sizes="100vw"
+            />
+          </div>
         </div>
       )}
     </div>

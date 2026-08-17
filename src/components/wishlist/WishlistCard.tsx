@@ -1,8 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Tour } from '@/types';
 import { Star, MapPin, Clock, Trash2, ArrowRight } from 'lucide-react';
+import { TOUR_IMAGE_BLUR } from '@/lib/image-placeholder';
 
 interface WishlistCardProps {
   tour: Tour;
@@ -24,10 +26,14 @@ export default function WishlistCard({
       {/* Tour Image Header */}
       <Link href={`/tours/${tour.slug}`} className="relative h-48 bg-navy-900 overflow-hidden block">
         {tour.image ? (
-          <img
+          <Image
             src={tour.image}
             alt={tour.name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            placeholder="blur"
+            blurDataURL={TOUR_IMAGE_BLUR}
           />
         ) : (
           <div

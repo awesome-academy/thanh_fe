@@ -1,10 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTours } from '@/hooks/use-tours';
 import { useDestinations } from '@/hooks/use-destinations';
 import { useWishlistStore } from '@/stores/use-wishlist-store';
 import { Star, MapPin, Clock, Heart } from 'lucide-react';
+import { TOUR_IMAGE_BLUR } from '@/lib/image-placeholder';
 
 export default function FeaturedTours() {
   const { data, isLoading } = useTours({ limit: 4, sort: 'rating' });
@@ -47,10 +49,14 @@ export default function FeaturedTours() {
                 {/* Tour Card Header Image */}
                 <div className="relative h-48 bg-navy-900 overflow-hidden">
                   {tour.image ? (
-                    <img
+                    <Image
                       src={tour.image}
                       alt={tour.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      placeholder="blur"
+                      blurDataURL={TOUR_IMAGE_BLUR}
                     />
                   ) : (
                     <div
