@@ -2,6 +2,7 @@ import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { Tour } from "@/types";
 
 export interface TourQueryParams {
+  ids?: string[];
   search?: string;
   dest?: string;
   type?: string;
@@ -21,8 +22,12 @@ export interface ToursResponse {
   totalPages: number;
 }
 
-export function useTours(params?: TourQueryParams) {
+/**
+ * @param enabled
+ */
+export function useTours(params?: TourQueryParams, enabled = true) {
   const queryParams = new URLSearchParams();
+  if (params?.ids) queryParams.set("ids", params.ids.join(","));
   if (params?.search) queryParams.set("search", params.search);
   if (params?.dest) queryParams.set("dest", params.dest);
   if (params?.type) queryParams.set("type", params.type);
@@ -48,5 +53,6 @@ export function useTours(params?: TourQueryParams) {
       return res.json();
     },
     placeholderData: keepPreviousData,
+    enabled,
   });
 }

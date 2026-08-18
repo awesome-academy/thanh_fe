@@ -1,8 +1,8 @@
 'use client';
 
-import { use, useState, useEffect } from 'react';
+import { use, useState } from 'react';
 import Link from 'next/link';
-import { Booking } from '@/types';
+import { useBookings } from '@/hooks/use-bookings';
 import { Button } from '@/components/ui/button';
 import { CheckCircle2, Copy, Check, ShoppingBag, Home, Calendar, Users, MapPin, Mail, Phone, CreditCard, ShieldCheck, AlertCircle, Compass } from 'lucide-react';
 
@@ -16,35 +16,21 @@ export default function BookingSuccessPage({
   const bookingCode = decodeURIComponent(rawCode);
 
   const [copied, setCopied] = useState(false);
-  const [booking, setBooking] = useState<Booking | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [copyFailed, setCopyFailed] = useState(false);
 
-  useEffect(() => {
-    let isMounted = true;
-    fetch('/api/bookings')
-      .then((res) => (res.ok ? res.json() : []))
-      .then((bookings: Booking[]) => {
-        if (isMounted) {
-          const match = bookings.find(
-            (b) => b.code === bookingCode || b.id === bookingCode
-          );
-          if (match) setBooking(match);
-          setLoading(false);
-        }
-      })
-      .catch(() => {
-        if (isMounted) setLoading(false);
-      });
+  const { data: bookings, isLoading: loading } = useBookings();
+  const booking =
+    bookings?.find((b) => b.code === bookingCode || b.id === bookingCode) ?? null;
 
-    return () => {
-      isMounted = false;
-    };
-  }, [bookingCode]);
-
-  const handleCopyCode = () => {
-    navigator.clipboard.writeText(bookingCode);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopyCode = async () => {
+    try {
+      await navigator.clipboard.writeText(bookingCode);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopyFailed(true);
+      setTimeout(() => setCopyFailed(false), 2000);
+    }
   };
 
   if (loading) {
@@ -125,6 +111,11 @@ export default function BookingSuccessPage({
           {copied && (
             <p className="text-[11px] font-semibold text-emerald-600">
               Đã sao chép mã đặt tour!
+            </p>
+          )}
+          {copyFailed && (
+            <p className="text-[11px] font-semibold text-rose-600">
+              Không sao chép được, vui lòng chọn và copy mã thủ công.
             </p>
           )}
         </div>

@@ -6,6 +6,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useTourDetail } from '@/hooks/use-tour-detail';
 import { useCreateBooking } from '@/hooks/use-bookings';
+import { toLocalDateString } from '@/lib/format';
 import CheckoutStepper from '@/components/checkout/CheckoutStepper';
 import GuestInfoStep, { GuestInfoValues } from '@/components/checkout/GuestInfoStep';
 import PaymentStep, { PaymentMethodType } from '@/components/checkout/PaymentStep';
@@ -20,7 +21,7 @@ function CheckoutPageContent() {
 
   const slug = searchParams.get('slug') || searchParams.get('tourId');
 
-  const todayStr = new Date().toISOString().split('T')[0];
+  const todayStr = toLocalDateString(new Date());
   const rawDate = searchParams.get('date');
   const isValidDateStr = Boolean(rawDate && /^\d{4}-\d{2}-\d{2}$/.test(rawDate));
   const date = isValidDateStr && rawDate && rawDate >= todayStr ? rawDate : todayStr;
