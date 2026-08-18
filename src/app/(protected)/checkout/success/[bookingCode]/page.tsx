@@ -94,7 +94,7 @@ export default function BookingSuccessPage({
         </div>
 
         <div className="space-y-1">
-          <h1 className="text-2xl sm:text-3xl font-bold text-textStrong">Đơn Hàng Đã Đã Khởi Tạo!</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-textStrong">Đơn Hàng Đã Khởi Tạo!</h1>
           <p className="text-xs sm:text-sm text-textMuted leading-relaxed max-w-md mx-auto">
             Cảm ơn bạn đã lựa chọn TripGo. Đơn đặt tour của bạn đã được ghi nhận trên hệ thống ở trạng thái chờ xác nhận.
           </p>

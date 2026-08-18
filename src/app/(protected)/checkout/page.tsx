@@ -4,15 +4,14 @@ import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { Tour } from '@/types';
-import { getTourBySlug } from '@/services/tour-service';
+import { useTourDetail } from '@/hooks/use-tour-detail';
 import { useCreateBooking } from '@/hooks/use-bookings';
 import CheckoutStepper from '@/components/checkout/CheckoutStepper';
 import GuestInfoStep, { GuestInfoValues } from '@/components/checkout/GuestInfoStep';
 import PaymentStep, { PaymentMethodType } from '@/components/checkout/PaymentStep';
 import OrderSummaryStep from '@/components/checkout/OrderSummaryStep';
 import { Button } from '@/components/ui/button';
-import { Compass, AlertCircle } from 'lucide-react';
+import { Compass, AlertCircle, RefreshCw } from 'lucide-react';
 
 function CheckoutPageContent() {
   const router = useRouter();
@@ -32,8 +31,7 @@ function CheckoutPageContent() {
   const rawChildren = Number(searchParams.get('children'));
   const childrenCount = Number.isInteger(rawChildren) && rawChildren >= 0 ? rawChildren : 0;
 
-  const [tour, setTour] = useState<Tour | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { data: tour, isLoading, isError, refetch } = useTourDetail(slug ?? '');
   const [currentStep, setCurrentStep] = useState(1);
 
   const [guestInfo, setGuestInfo] = useState<GuestInfoValues>({
@@ -59,26 +57,7 @@ function CheckoutPageContent() {
     }
   }, [session]);
 
-  useEffect(() => {
-    let isMounted = true;
-    if (!slug) {
-      setLoading(false);
-      return;
-    }
-
-    getTourBySlug(slug).then((res) => {
-      if (isMounted) {
-        setTour(res);
-        setLoading(false);
-      }
-    });
-
-    return () => {
-      isMounted = false;
-    };
-  }, [slug]);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-16 text-center space-y-3">
         <div className="w-10 h-10 border-4 border-cacao-600 border-t-transparent rounded-full animate-spin mx-auto" />
@@ -87,23 +66,41 @@ function CheckoutPageContent() {
     );
   }
 
-  // Guard: No tour selected
-  if (!slug || !tour) {
+  if (!slug || isError || !tour) {
+    const isNoSelection = !slug;
+
     return (
       <div className="max-w-md mx-auto my-16 p-8 bg-surface-card border border-borderSubtle rounded-2xl shadow-xl text-center space-y-4">
         <div className="w-12 h-12 rounded-full bg-rose-50 border border-rose-200 flex items-center justify-center mx-auto text-rose-600">
           <AlertCircle className="w-6 h-6" />
         </div>
-        <h1 className="text-xl font-bold text-textStrong">Chưa chọn tour cần đặt</h1>
+        <h1 className="text-xl font-bold text-textStrong">
+          {isNoSelection ? 'Chưa chọn tour cần đặt' : 'Không tải được thông tin tour'}
+        </h1>
         <p className="text-xs text-textMuted leading-relaxed">
-          Vui lòng chọn tour du lịch yêu thích từ danh sách để bắt đầu quy trình đặt tour và thanh toán.
+          {isNoSelection
+            ? 'Vui lòng chọn tour du lịch yêu thích từ danh sách để bắt đầu quy trình đặt tour và thanh toán.'
+            : 'Tour không tồn tại hoặc kết nối đang gián đoạn. Vui lòng thử lại hoặc chọn tour khác từ danh sách.'}
         </p>
-        <Link href="/tours" className="inline-block pt-2">
-          <Button size="lg" className="bg-cacao-600 hover:bg-cacao-700 text-white font-bold rounded-xl flex items-center gap-2">
-            <Compass className="w-4 h-4" />
-            <span>Khám phá danh sách Tour</span>
-          </Button>
-        </Link>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 pt-2">
+          {!isNoSelection && (
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => refetch()}
+              className="w-full sm:w-auto border-cacao-600 text-cacao-700 hover:bg-cacao-50 font-bold rounded-xl flex items-center gap-2"
+            >
+              <RefreshCw className="w-4 h-4" />
+              <span>Thử lại</span>
+            </Button>
+          )}
+          <Link href="/tours" className="w-full sm:w-auto">
+            <Button size="lg" className="w-full bg-cacao-600 hover:bg-cacao-700 text-white font-bold rounded-xl flex items-center gap-2">
+              <Compass className="w-4 h-4" />
+              <span>Khám phá danh sách Tour</span>
+            </Button>
+          </Link>
+        </div>
       </div>
     );
   }

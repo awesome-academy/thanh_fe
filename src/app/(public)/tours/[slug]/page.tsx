@@ -14,7 +14,7 @@ interface TourDetailPageProps {
 
 export async function generateMetadata({ params }: TourDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const tour = await getTourBySlug(slug);
+  const tour = getTourBySlug(slug);
 
   if (!tour) {
     return { title: 'Không tìm thấy tour | TripGo' };
@@ -33,10 +33,8 @@ export async function generateMetadata({ params }: TourDetailPageProps): Promise
 
 export default async function TourDetailPage({ params }: TourDetailPageProps) {
   const { slug } = await params;
-  const [tour, destMap] = await Promise.all([
-    getTourBySlug(slug),
-    getDestinationsMap(),
-  ]);
+  const tour = getTourBySlug(slug);
+  const destMap = getDestinationsMap();
 
   if (!tour) {
     notFound();
@@ -84,7 +82,7 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
 
       {/* Image Gallery */}
       <TourGallery
-        images={tour.image ? [tour.image] : []}
+        images={tour.images}
         gradient={tour.gradient}
         tourName={tour.name}
         categoryName={tour.type?.toUpperCase() || 'DU LỊCH'}
@@ -95,12 +93,13 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
         {/* Left Column (2/3) */}
         <div className="lg:col-span-2 space-y-8">
           <TourOverview
-            description={tour.name}
+            description={tour.description}
             highlights={tour.highlights}
+            included={tour.included}
             excluded={tour.excludes}
           />
           <TourItinerary daysCount={tour.days} itinerary={tour.itinerary} />
-          <TourReviewsSection tourId={tour.id} slug={tour.slug} />
+          <TourReviewsSection tourId={tour.id} slug={tour.slug} rating={tour.rating} />
         </div>
 
         {/* Right Column (1/3) Sticky Booking Widget */}

@@ -31,7 +31,7 @@ export default function TestimonialsSection() {
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1 text-status-star">
-                    {[...Array(rev.rating)].map((_, s) => (
+                    {[...Array(Math.round(rev.rating))].map((_, s) => (
                       <Star key={s} className="w-4 h-4 fill-current" />
                     ))}
                   </div>
