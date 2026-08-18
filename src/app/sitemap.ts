@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next';
-import toursData from '@/data/mock/tours.json';
-import { Tour } from '@/types';
+import { toursStore } from '@/lib/mock-store';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000';
 
@@ -20,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const tourRoutes: MetadataRoute.Sitemap = (toursData as Tour[]).map((tour) => ({
+  const tourRoutes: MetadataRoute.Sitemap = toursStore.map((tour) => ({
     url: `${BASE_URL}/tours/${tour.slug}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,

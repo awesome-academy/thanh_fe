@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Tour } from '@/types';
 import { GuestInfoValues } from './GuestInfoStep';
 import { PaymentMethodType } from './PaymentStep';
-import { TOUR_IMAGE_BLUR } from '@/lib/image-placeholder';
+import { TOUR_IMAGE_BLUR, TOUR_GRADIENT_FALLBACK } from '@/lib/image-placeholder';
 import { Button } from '@/components/ui/button';
 import { Calendar, Users, MapPin, User, Mail, Phone, ArrowLeft, CheckCircle2, ShieldCheck, FileText, AlertCircle } from 'lucide-react';
 
@@ -70,15 +70,22 @@ export default function OrderSummaryStep({
         {/* Tour Information Recap */}
         <div className="flex flex-col sm:flex-row gap-4 p-4 bg-surface-page border border-borderSubtle rounded-2xl">
           <div className="relative w-full sm:w-32 h-24 rounded-xl overflow-hidden shrink-0">
-            <Image
-              src={tour.image || ''}
-              alt={tour.name}
-              fill
-              className="object-cover"
-              sizes="(max-width: 639px) calc(100vw - 64px), 128px"
-              placeholder="blur"
-              blurDataURL={TOUR_IMAGE_BLUR}
-            />
+            {tour.image ? (
+              <Image
+                src={tour.image}
+                alt={tour.name}
+                fill
+                className="object-cover"
+                sizes="(max-width: 639px) calc(100vw - 64px), 128px"
+                placeholder="blur"
+                blurDataURL={TOUR_IMAGE_BLUR}
+              />
+            ) : (
+              <div
+                className="w-full h-full"
+                style={{ background: tour.gradient || TOUR_GRADIENT_FALLBACK }}
+              />
+            )}
           </div>
           <div className="space-y-1.5 flex-1">
             <h3 className="font-bold text-textStrong text-base leading-snug">{tour.name}</h3>

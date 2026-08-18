@@ -6,51 +6,15 @@ import { Calendar, ChevronDown, MapPin } from 'lucide-react';
 interface ItineraryDay {
   day: number;
   title: string;
-  content?: string;
-  activities?: string[];
+  content: string;
 }
 
 interface TourItineraryProps {
-  daysCount?: number;
   itinerary?: ItineraryDay[];
 }
 
-export default function TourItinerary({ daysCount = 3, itinerary }: TourItineraryProps) {
-  // Default mock itinerary if none provided
-  const defaultItinerary: ItineraryDay[] = [
-    {
-      day: 1,
-      title: 'Đón khách — Khởi hành chuyến đi — Khám phá điểm đến',
-      activities: [
-        '08:00 - Xe và HDV đón đoàn tại điểm hẹn trung tâm.',
-        '10:30 - Đến điểm dừng nghỉ, nghỉ ngơi chụp ảnh.',
-        '12:00 - Thưởng thức bữa trưa đặc sản tại nhà hàng địa phương.',
-        '14:30 - Nhận phòng khách sạn, tự do bơi lội và khám phá.',
-      ],
-    },
-    {
-      day: 2,
-      title: 'Trải nghiệm danh thắng nổi tiếng — Thưởng thức ẩm thực',
-      activities: [
-        '07:00 - Dùng điểm tâm sáng buffet tại khách sạn.',
-        '08:30 - Tham quan di tích lịch sử và danh lam thắng cảnh.',
-        '12:30 - Bữa trưa hải sản tươi sống tại nhà bè.',
-        '18:30 - Tiệc tối nướng BBQ kết hợp chương trình giao lưu.',
-      ],
-    },
-    {
-      day: 3,
-      title: 'Mua sắm đặc sản — Tiễn đoàn về lại điểm hẹn ban đầu',
-      activities: [
-        '07:30 - Ăn sáng, tự do dạo chợ mua quà lưu niệm.',
-        '11:00 - Làm thủ tục trả phòng khách sạn.',
-        '12:00 - Dùng bữa trưa nhẹ trước khi lên xe về.',
-        '17:00 - Về đến điểm hẹn ban đầu, kết thúc chuyến đi tốt đẹp.',
-      ],
-    },
-  ];
-
-  const displayItinerary = itinerary && itinerary.length > 0 ? itinerary : defaultItinerary.slice(0, daysCount);
+export default function TourItinerary({ itinerary }: TourItineraryProps) {
+  const displayItinerary = itinerary ?? [];
   const [openDays, setOpenDays] = useState<number[]>([1]);
 
   const toggleDay = (dayNum: number) => {
@@ -66,10 +30,18 @@ export default function TourItinerary({ daysCount = 3, itinerary }: TourItinerar
       <div className="flex items-center justify-between pb-3 border-b border-borderSubtle">
         <h3 className="text-lg font-bold text-textStrong flex items-center gap-2">
           <Calendar className="w-5 h-5 text-cacao-600" />
-          <span>Lịch Trình Chi Tiết ({displayItinerary.length} Ngày)</span>
+          <span>
+            Lịch Trình Chi Tiết
+            {displayItinerary.length > 0 && ` (${displayItinerary.length} Ngày)`}
+          </span>
         </h3>
       </div>
 
+      {displayItinerary.length === 0 ? (
+        <p className="py-8 text-center text-xs text-textMuted">
+          Lịch trình chi tiết đang được cập nhật. Vui lòng liên hệ để được tư vấn cụ thể.
+        </p>
+      ) : (
       <div className="space-y-3">
         {displayItinerary.map((item) => {
           const isOpen = openDays.includes(item.day);
@@ -101,25 +73,17 @@ export default function TourItinerary({ daysCount = 3, itinerary }: TourItinerar
 
               {isOpen && (
                 <div className="p-4 bg-surface-card space-y-2 border-t border-borderSubtle text-xs text-textBody">
-                  {item.content ? (
-                    <div className="flex items-start gap-2.5">
-                      <MapPin className="w-3.5 h-3.5 text-cacao-500 shrink-0 mt-0.5" />
-                      <span className="leading-relaxed">{item.content}</span>
-                    </div>
-                  ) : (
-                    item.activities?.map((act, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5">
-                        <MapPin className="w-3.5 h-3.5 text-cacao-500 shrink-0 mt-0.5" />
-                        <span className="leading-relaxed">{act}</span>
-                      </div>
-                    ))
-                  )}
+                  <div className="flex items-start gap-2.5">
+                    <MapPin className="w-3.5 h-3.5 text-cacao-500 shrink-0 mt-0.5" />
+                    <span className="leading-relaxed">{item.content}</span>
+                  </div>
                 </div>
               )}
             </div>
           );
         })}
       </div>
+      )}
     </div>
   );
 }

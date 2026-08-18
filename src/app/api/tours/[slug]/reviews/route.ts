@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Review } from "@/types";
-import { toursStore, reviewsStore } from "@/lib/mock-store";
+import { toursStore, reviewsStore, nextMockId } from "@/lib/mock-store";
 import { auth } from "@/auth";
 
 export async function POST(
@@ -58,7 +58,7 @@ export async function POST(
         : nameParts[0].slice(0, 2).toUpperCase();
 
     const newReview: Review = {
-      id: `r${reviewsStore.length + 1}`,
+      id: nextMockId(reviewsStore, "r"),
       tourId: tour.id,
       userName: trimmedName,
       userInitials: initials,

@@ -40,5 +40,47 @@
     "tourCount": 21,
     "startingPrice": 3890000,
     "gradient": "linear-gradient(135deg, #137DD0 0%, #9FCBEE 100%)"
+  },
+  {
+    "slug": "ninh-binh",
+    "name": "Ninh Bình",
+    "tourCount": 1,
+    "startingPrice": 2190000,
+    "gradient": "linear-gradient(135deg, #14273F 0%, #137DD0 100%)"
+  },
+  {
+    "slug": "hue",
+    "name": "Huế",
+    "tourCount": 1,
+    "startingPrice": 2890000,
+    "gradient": "linear-gradient(135deg, #08355A 0%, #3B90D6 100%)"
+  },
+  {
+    "slug": "quy-nhon",
+    "name": "Quy Nhơn",
+    "tourCount": 1,
+    "startingPrice": 3590000,
+    "gradient": "linear-gradient(135deg, #0F6FBD 0%, #9FCBEE 100%)"
+  },
+  {
+    "slug": "ha-giang",
+    "name": "Hà Giang",
+    "tourCount": 1,
+    "startingPrice": 3190000,
+    "gradient": "linear-gradient(135deg, #1B3252 0%, #3B90D6 100%)"
+  },
+  {
+    "slug": "moc-chau",
+    "name": "Mộc Châu",
+    "tourCount": 1,
+    "startingPrice": 1990000,
+    "gradient": "linear-gradient(135deg, #14273F 0%, #6BAEE4 100%)"
+  },
+  {
+    "slug": "can-tho",
+    "name": "Cần Thơ",
+    "tourCount": 2,
+    "startingPrice": 1890000,
+    "gradient": "linear-gradient(135deg, #08355A 0%, #6BAEE4 100%)"
   }
 ]

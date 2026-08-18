@@ -23,3 +23,21 @@ if (process.env.NODE_ENV !== "production") {
   globalForMock.bookingsStore = bookingsStore;
   globalForMock.usersStore = usersStore;
 }
+
+/**
+ * Next sequential ID for a mock store, e.g. nextMockId(reviewsStore, "r") → "r8".
+ *
+ * Derived from the highest numeric suffix in use, not from the array length:
+ * `length + 1` collides after a delete, and admin tour delete both removes a
+ * tour and cascades to its reviews.
+ */
+export function nextMockId<T extends { id: string }>(
+  store: T[],
+  prefix: string
+): string {
+  const highest = store.reduce((max, item) => {
+    const n = Number(item.id.slice(prefix.length));
+    return Number.isFinite(n) && n > max ? n : max;
+  }, 0);
+  return `${prefix}${highest + 1}`;
+}

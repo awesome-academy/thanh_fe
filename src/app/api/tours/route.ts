@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Tour } from "@/types";
-import toursData from "@/data/mock/tours.json";
+import { toursStore } from "@/lib/mock-store";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
   const page = Math.max(1, Number(searchParams.get("page")) || 1);
   const limit = Math.max(1, Number(searchParams.get("limit")) || 6);
 
-  let filtered: Tour[] = toursData as Tour[];
+  let filtered: Tour[] = toursStore;
 
   // Keyword search
   if (search) {

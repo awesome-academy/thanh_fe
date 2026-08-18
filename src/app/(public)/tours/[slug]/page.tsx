@@ -98,7 +98,7 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
             included={tour.included}
             excluded={tour.excludes}
           />
-          <TourItinerary daysCount={tour.days} itinerary={tour.itinerary} />
+          <TourItinerary itinerary={tour.itinerary} />
           <TourReviewsSection tourId={tour.id} slug={tour.slug} rating={tour.rating} />
         </div>
 

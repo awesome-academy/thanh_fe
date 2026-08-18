@@ -1,14 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Tour } from "@/types";
-import toursData from "@/data/mock/tours.json";
-import { reviewsStore } from "@/lib/mock-store";
+import { toursStore, reviewsStore } from "@/lib/mock-store";
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  const tours = toursData as Tour[];
+  const tours = toursStore;
 
   const tour = tours.find((t) => t.slug === slug || t.id === slug);
 

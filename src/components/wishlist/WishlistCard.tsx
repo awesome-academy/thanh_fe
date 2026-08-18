@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Tour } from '@/types';
 import { Star, MapPin, Clock, Trash2, ArrowRight } from 'lucide-react';
-import { TOUR_IMAGE_BLUR } from '@/lib/image-placeholder';
+import { TOUR_IMAGE_BLUR, TOUR_GRADIENT_FALLBACK } from '@/lib/image-placeholder';
 
 interface WishlistCardProps {
   tour: Tour;
@@ -38,7 +38,7 @@ export default function WishlistCard({
         ) : (
           <div
             className="w-full h-full"
-            style={{ background: tour.gradient || 'linear-gradient(135deg, #0F6FBD 0%, #137DD0 100%)' }}
+            style={{ background: tour.gradient || TOUR_GRADIENT_FALLBACK }}
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />

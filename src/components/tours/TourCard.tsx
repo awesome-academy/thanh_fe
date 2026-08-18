@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { MapPin, Clock, Star, Heart } from 'lucide-react';
 import { Tour } from '@/types';
 import { formatCurrency } from '@/lib/format';
-import { TOUR_IMAGE_BLUR } from '@/lib/image-placeholder';
+import { TOUR_IMAGE_BLUR, TOUR_GRADIENT_FALLBACK } from '@/lib/image-placeholder';
 import { useWishlistStore } from '@/stores/use-wishlist-store';
 
 interface TourCardProps {
@@ -48,7 +48,7 @@ export default function TourCard({ tour, destinationName }: TourCardProps) {
         ) : (
           <div
             className="w-full h-full"
-            style={{ background: tour.gradient || 'linear-gradient(135deg, #0F6FBD 0%, #137DD0 100%)' }}
+            style={{ background: tour.gradient || TOUR_GRADIENT_FALLBACK }}
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
