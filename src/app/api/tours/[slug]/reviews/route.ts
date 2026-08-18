@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Review } from "@/types";
 import { toursStore, reviewsStore } from "@/lib/mock-store";
+import { getUserInitials } from "@/lib/format";
 import { auth } from "@/auth";
 
 export async function POST(
@@ -26,22 +27,30 @@ export async function POST(
       );
     }
 
-    const body = await request.json();
-    const { userName, rating, comment } = body;
+    const authorName =
+      session.user.name?.trim() || session.user.email?.split("@")[0].trim() || "";
 
-    const trimmedName = typeof userName === 'string' ? userName.trim() : '';
+    if (!authorName) {
+      return NextResponse.json(
+        { error: { code: "UNAUTHORIZED", message: "Phiên đăng nhập không hợp lệ" } },
+        { status: 401 }
+      );
+    }
+
+    const body = await request.json();
+    const { rating, comment } = body;
+
     const trimmedComment = typeof comment === 'string' ? comment.trim() : '';
     const parsedRating = Number(rating);
     const isValidRating = Number.isInteger(parsedRating) && parsedRating >= 1 && parsedRating <= 5;
 
-    if (!trimmedName || !isValidRating || !trimmedComment) {
+    if (!isValidRating || !trimmedComment) {
       return NextResponse.json(
         {
           error: {
             code: "VALIDATION",
             message: "Thiếu thông tin đánh giá",
             fields: {
-              userName: !trimmedName ? "Vui lòng nhập tên" : "",
               rating: !isValidRating ? "Vui lòng chọn số sao (1-5)" : "",
               comment: !trimmedComment ? "Vui lòng nhập nhận xét" : "",
             },
@@ -51,17 +60,11 @@ export async function POST(
       );
     }
 
-    const nameParts = trimmedName.split(" ");
-    const initials =
-      nameParts.length > 1
-        ? `${nameParts[0][0]}${nameParts[nameParts.length - 1][0]}`.toUpperCase()
-        : nameParts[0].slice(0, 2).toUpperCase();
-
     const newReview: Review = {
-      id: `r${reviewsStore.length + 1}`,
+      id: `r_${crypto.randomUUID()}`,
       tourId: tour.id,
-      userName: trimmedName,
-      userInitials: initials,
+      userName: authorName,
+      userInitials: getUserInitials(authorName),
       rating: parsedRating,
       comment: trimmedComment,
       createdAt: new Date().toISOString().split("T")[0],

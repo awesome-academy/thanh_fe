@@ -4,6 +4,7 @@ import { Booking } from "@/types";
 import { toursStore, bookingsStore } from "@/lib/mock-store";
 import { getBusinessToday } from "@/lib/format";
 import { auth } from "@/auth";
+import { isBookingOwner } from "@/lib/booking-auth";
 
 const MAX_GUESTS_PER_TYPE = 20;
 
@@ -30,23 +31,6 @@ const bookingSchema = z.object({
     note: z.string().optional(),
   }),
 });
-
-function isBookingOwner(
-  booking: Booking,
-  user: { id?: string; email?: string | null; role?: string }
-): boolean {
-  if (user.role === "admin") return true;
-
-  if (booking.userId) {
-    return Boolean(user.id && booking.userId === user.id);
-  }
-
-  if (user.email && booking.contact?.email) {
-    return booking.contact.email.toLowerCase() === user.email.toLowerCase();
-  }
-
-  return false;
-}
 
 export async function GET() {
   const session = await auth();
