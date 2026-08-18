@@ -13,7 +13,7 @@ interface TourBookingWidgetProps {
   tourId: string;
   slug: string;
   price: number;
-  kidPrice?: number;
+  kidPrice: number;
 }
 
 export default function TourBookingWidget({ tourId, slug, price, kidPrice }: TourBookingWidgetProps) {
@@ -38,8 +38,7 @@ export default function TourBookingWidget({ tourId, slug, price, kidPrice }: Tou
 
   const totalGuests = adults + children;
 
-  const childPrice = kidPrice !== undefined ? kidPrice : Math.round(price * 0.75);
-  const totalPrice = adults * price + children * childPrice;
+  const totalPrice = adults * price + children * kidPrice;
 
   const handleBooking = () => {
     const params = new URLSearchParams({
@@ -126,7 +125,7 @@ export default function TourBookingWidget({ tourId, slug, price, kidPrice }: Tou
         <div className="flex items-center justify-between text-xs p-2.5 rounded-xl bg-surface-page border border-borderSubtle">
           <div>
             <p className="font-bold text-textStrong">Trẻ em</p>
-            <p className="text-textSubtle text-[11px]">Từ 2 — 11 tuổi ({childPrice.toLocaleString('vi-VN')} đ)</p>
+            <p className="text-textSubtle text-[11px]">Từ 2 — 11 tuổi ({kidPrice.toLocaleString('vi-VN')} đ)</p>
           </div>
           <div className="flex items-center gap-3">
             <button

@@ -56,20 +56,40 @@ export function useCreateBooking() {
   });
 }
 
+export interface CancelBookingPayload {
+  id: string;
+  reason: string;
+}
+
 export function useCancelBooking() {
   const queryClient = useQueryClient();
 
-  return useMutation<Booking, Error, string>({
-    mutationFn: async (bookingId) => {
-      const res = await fetch(`/api/bookings/${bookingId}/cancel`, {
+  return useMutation<Booking, Error, CancelBookingPayload>({
+    mutationFn: async ({ id, reason }) => {
+      const res = await fetch(`/api/bookings/${id}/cancel`, {
         method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reason }),
       });
-
       if (!res.ok) {
-        throw new Error("Hủy đơn hàng thất bại");
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data?.error?.message || "Hủy đơn hàng thất bại");
       }
-
       return res.json();
+    },
+    onMutate: async ({ id }) => {
+      await queryClient.cancelQueries({ queryKey: ["bookings"] });
+      const previous = queryClient.getQueryData<Booking[]>(["bookings"]);
+      queryClient.setQueryData<Booking[]>(["bookings"], (old) =>
+        old ? old.map((b) => (b.id === id ? { ...b, status: "cancelled" } : b)) : []
+      );
+      return { previous };
+    },
+    onError: (_err, _vars, context) => {
+      const ctx = context as { previous?: Booking[] } | undefined;
+      if (ctx?.previous) {
+        queryClient.setQueryData(["bookings"], ctx.previous);
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["bookings"] });
