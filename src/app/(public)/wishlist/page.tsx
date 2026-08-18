@@ -14,7 +14,7 @@ export default function WishlistPage() {
   const [mounted, setMounted] = useState(false);
 
   const { wishlistIds, toggleWishlist } = useWishlistStore();
-  const { data: toursData, isLoading } = useTours({ limit: 100 });
+  const { data: toursData, isLoading } = useTours({ ids: wishlistIds }, mounted);
   const { data: destinations } = useDestinations();
 
   useEffect(() => {
@@ -25,8 +25,7 @@ export default function WishlistPage() {
     (destinations || []).map((d) => [d.slug, d.name])
   );
 
-  const allTours = toursData?.data || [];
-  const savedTours = allTours.filter((tour) => wishlistIds.includes(tour.id));
+  const savedTours = toursData?.data || [];
 
   const handleBookNow = (slug: string) => {
     router.push(`/checkout?slug=${encodeURIComponent(slug)}`);

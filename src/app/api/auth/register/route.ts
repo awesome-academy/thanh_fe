@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import { usersStore } from "@/lib/mock-store";
-import { User } from "@/types";
+import { StoredUser, User } from "@/types";
 
 const registerSchema = z.object({
   name: z.string().min(2, "Họ và tên tối thiểu 2 ký tự"),
@@ -33,10 +34,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const newUser: User = {
-      id: `u_${Date.now()}`,
+    const newUser: StoredUser = {
+      id: `u_${randomUUID()}`,
       name: name.trim(),
       email: cleanEmail,
+      // TODO: hash password (bcrypt) khi chuyển sang DB thật — mock store đang lưu plaintext
       password,
       role: "user",
       avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name)}`,
@@ -44,15 +46,10 @@ export async function POST(request: NextRequest) {
 
     usersStore.push(newUser);
 
-    return NextResponse.json({
-      user: {
-        id: newUser.id,
-        name: newUser.name,
-        email: newUser.email,
-        avatar: newUser.avatar,
-        role: newUser.role,
-      },
-    });
+    const { password: _password, ...publicUser } = newUser;
+    const user: User = publicUser;
+
+    return NextResponse.json({ user });
   } catch {
     return NextResponse.json(
       { error: { code: "BAD_REQUEST", message: "Yêu cầu không hợp lệ" } },

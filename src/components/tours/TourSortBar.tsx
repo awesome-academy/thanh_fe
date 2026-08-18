@@ -54,6 +54,7 @@ export default function TourSortBar({ total, onOpenMobileFilter }: TourSortBarPr
           className="w-full sm:w-auto bg-surface-page border border-borderSubtle rounded-lg px-3 py-1.5 text-xs font-medium text-textStrong focus:ring-2 focus:ring-cacao-500 outline-none cursor-pointer"
         >
           <option value="recommended">Gợi ý hàng đầu</option>
+          <option value="discount">Ưu đãi tốt nhất</option>
           <option value="price-asc">Giá từ thấp đến cao</option>
           <option value="price-desc">Giá từ cao đến thấp</option>
           <option value="rating">Đánh giá cao nhất</option>

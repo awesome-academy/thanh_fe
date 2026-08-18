@@ -72,7 +72,9 @@ export default function RegisterPage() {
       });
 
       if (signInResult?.error) {
-        router.push(`/login?email=${encodeURIComponent(values.email)}&registered=true`);
+        setServerError('Tạo tài khoản thành công nhưng đăng nhập tự động thất bại. Vui lòng đăng nhập lại.');
+        setIsSubmitting(false);
+        router.push('/login');
         return;
       }
 

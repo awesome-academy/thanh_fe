@@ -1,32 +1,44 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Calendar, Users, ShieldCheck, Heart, ArrowRight } from 'lucide-react';
 import { useWishlistStore } from '@/stores/use-wishlist-store';
 import { Button } from '@/components/ui/button';
+import { toLocalDateString } from '@/lib/format';
+
+const MAX_GUESTS = 20;
 
 interface TourBookingWidgetProps {
   tourId: string;
   slug: string;
   price: number;
-  kidPrice?: number;
+  kidPrice: number;
 }
 
 export default function TourBookingWidget({ tourId, slug, price, kidPrice }: TourBookingWidgetProps) {
   const router = useRouter();
-  const { wishlistIds, toggleWishlist } = useWishlistStore();
-  const isFav = wishlistIds.includes(tourId);
+  const wishlistIds = useWishlistStore((s) => s.wishlistIds);
+  const toggleWishlist = useWishlistStore((s) => s.toggleWishlist);
 
-  const todayStr = new Date().toISOString().split('T')[0];
-  const defaultDateStr = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+  const [mounted, setMounted] = useState(false);
+  const [todayStr, setTodayStr] = useState('');
+  const [date, setDate] = useState('');
+
+  useEffect(() => {
+    setMounted(true);
+    setTodayStr(toLocalDateString(new Date()));
+    setDate(toLocalDateString(new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)));
+  }, []);
+
+  const isFav = mounted && wishlistIds.includes(tourId);
 
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
-  const [date, setDate] = useState(defaultDateStr);
 
-  const childPrice = kidPrice !== undefined ? kidPrice : Math.round(price * 0.75);
-  const totalPrice = adults * price + children * childPrice;
+  const totalGuests = adults + children;
+
+  const totalPrice = adults * price + children * kidPrice;
 
   const handleBooking = () => {
     const params = new URLSearchParams({
@@ -100,8 +112,9 @@ export default function TourBookingWidget({ tourId, slug, price, kidPrice }: Tou
             <span className="font-bold text-sm text-textStrong w-4 text-center">{adults}</span>
             <button
               type="button"
+              disabled={totalGuests >= MAX_GUESTS}
               onClick={() => setAdults(adults + 1)}
-              className="w-7 h-7 rounded-lg border border-borderSubtle flex items-center justify-center font-bold text-textStrong cursor-pointer"
+              className="w-7 h-7 rounded-lg border border-borderSubtle flex items-center justify-center font-bold text-textStrong disabled:opacity-40 cursor-pointer"
             >
               +
             </button>
@@ -112,7 +125,7 @@ export default function TourBookingWidget({ tourId, slug, price, kidPrice }: Tou
         <div className="flex items-center justify-between text-xs p-2.5 rounded-xl bg-surface-page border border-borderSubtle">
           <div>
             <p className="font-bold text-textStrong">Trẻ em</p>
-            <p className="text-textSubtle text-[11px]">Từ 2 — 11 tuổi ({childPrice.toLocaleString('vi-VN')} đ)</p>
+            <p className="text-textSubtle text-[11px]">Từ 2 — 11 tuổi ({kidPrice.toLocaleString('vi-VN')} đ)</p>
           </div>
           <div className="flex items-center gap-3">
             <button
@@ -126,8 +139,9 @@ export default function TourBookingWidget({ tourId, slug, price, kidPrice }: Tou
             <span className="font-bold text-sm text-textStrong w-4 text-center">{children}</span>
             <button
               type="button"
+              disabled={totalGuests >= MAX_GUESTS}
               onClick={() => setChildren(children + 1)}
-              className="w-7 h-7 rounded-lg border border-borderSubtle flex items-center justify-center font-bold text-textStrong cursor-pointer"
+              className="w-7 h-7 rounded-lg border border-borderSubtle flex items-center justify-center font-bold text-textStrong disabled:opacity-40 cursor-pointer"
             >
               +
             </button>
@@ -146,6 +160,7 @@ export default function TourBookingWidget({ tourId, slug, price, kidPrice }: Tou
       {/* Booking CTA Button */}
       <Button
         onClick={handleBooking}
+        disabled={!date}
         size="lg"
         className="w-full bg-cacao-600 hover:bg-cacao-700 text-white font-bold py-3.5 rounded-xl shadow-lg flex items-center justify-center gap-2 cursor-pointer"
       >

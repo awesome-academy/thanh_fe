@@ -16,7 +16,17 @@ export async function GET(request: NextRequest) {
   const page = Math.max(1, Number(searchParams.get("page")) || 1);
   const limit = Math.max(1, Number(searchParams.get("limit")) || 6);
 
+  const hasIdsFilter = searchParams.has("ids");
+  const ids = (searchParams.get("ids") || "")
+    .split(",")
+    .map((id) => id.trim())
+    .filter(Boolean);
+
   let filtered: Tour[] = toursData as Tour[];
+
+  if (hasIdsFilter) {
+    filtered = filtered.filter((t) => ids.includes(t.id));
+  }
 
   // Keyword search
   if (search) {
@@ -44,9 +54,11 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  // Duration filter
+  const OPEN_ENDED_DURATION = 4;
   if (duration > 0) {
-    filtered = filtered.filter((t) => (duration === 4 ? t.days >= 4 : t.days === duration));
+    filtered = filtered.filter((t) =>
+      duration >= OPEN_ENDED_DURATION ? t.days >= duration : t.days === duration
+    );
   }
 
   // Rating filter
@@ -61,10 +73,22 @@ export async function GET(request: NextRequest) {
     filtered = [...filtered].sort((a, b) => b.price - a.price);
   } else if (sort === "rating") {
     filtered = [...filtered].sort((a, b) => b.rating - a.rating);
+  } else if (sort === "discount") {
+    filtered = [...filtered].sort((a, b) => b.rating - a.rating || b.reviews - a.reviews);
   }
 
   // Pagination
   const total = filtered.length;
+
+  if (hasIdsFilter) {
+    return NextResponse.json({
+      data: filtered,
+      total,
+      page: 1,
+      totalPages: 1,
+    });
+  }
+
   const totalPages = Math.ceil(total / limit);
   const startIndex = (page - 1) * limit;
   const paginated = filtered.slice(startIndex, startIndex + limit);

@@ -41,8 +41,7 @@ export default function OrderSummaryStep({
   onSubmit,
 }: OrderSummaryStepProps) {
   const adultTotal = adults * tour.price;
-  const childPrice = tour.kidPrice !== undefined ? tour.kidPrice : Math.round(tour.price * 0.75);
-  const childTotal = childrenCount * childPrice;
+  const childTotal = childrenCount * tour.kidPrice;
   const grandTotal = adultTotal + childTotal;
 
   return (
@@ -156,7 +155,7 @@ export default function OrderSummaryStep({
             </div>
             {childrenCount > 0 && (
               <div className="flex justify-between items-center">
-                <span>Trẻ em ({childrenCount} × {childPrice.toLocaleString('vi-VN')} đ):</span>
+                <span>Trẻ em ({childrenCount} × {tour.kidPrice.toLocaleString('vi-VN')} đ):</span>
                 <span className="font-semibold">{childTotal.toLocaleString('vi-VN')} đ</span>
               </div>
             )}
