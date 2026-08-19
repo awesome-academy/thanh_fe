@@ -32,3 +32,10 @@ const toBase64 = (str: string): string => {
 };
 /** Base64-encoded shimmer placeholder for landscape tour images (700×475). */
 export const TOUR_IMAGE_BLUR = `data:image/svg+xml;base64,${toBase64(shimmerSvg)}`;
+
+/**
+ * Background for a tour that has no photo, or whose own `gradient` is unset.
+ * Shared so the card, gallery, wishlist and checkout recap degrade identically.
+ */
+export const TOUR_GRADIENT_FALLBACK =
+  'linear-gradient(135deg, #0F6FBD 0%, #137DD0 100%)';

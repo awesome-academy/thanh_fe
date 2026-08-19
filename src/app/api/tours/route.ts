@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Tour } from "@/types";
-import toursData from "@/data/mock/tours.json";
+import { toursStore } from "@/lib/mock-store";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -16,13 +16,16 @@ export async function GET(request: NextRequest) {
   const page = Math.max(1, Number(searchParams.get("page")) || 1);
   const limit = Math.max(1, Number(searchParams.get("limit")) || 6);
 
+  // `ids=` (rỗng) nghĩa là tập rỗng — khác hẳn với không truyền `ids`, nếu không thì
+  // wishlist rỗng sẽ nhận về trang tour mặc định.
   const hasIdsFilter = searchParams.has("ids");
   const ids = (searchParams.get("ids") || "")
     .split(",")
     .map((id) => id.trim())
     .filter(Boolean);
 
-  let filtered: Tour[] = toursData as Tour[];
+  // toursStore (không phải toursData) để admin CRUD sửa/xoá tour phản ánh ngay ở đây
+  let filtered: Tour[] = toursStore;
 
   if (hasIdsFilter) {
     filtered = filtered.filter((t) => ids.includes(t.id));

@@ -1,10 +1,9 @@
 import { Tour, Destination } from '@/types';
-import toursData from '@/data/mock/tours.json';
+import { toursStore } from '@/lib/mock-store';
 import destinationsData from '@/data/mock/destinations.json';
 
 export function getTourBySlug(slug: string): Tour | null {
-  const tours = toursData as Tour[];
-  const tour = tours.find((t) => t.slug === slug || t.id === slug);
+  const tour = toursStore.find((t) => t.slug === slug || t.id === slug);
   return tour || null;
 }
 

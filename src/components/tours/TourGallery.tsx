@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Camera, X } from 'lucide-react';
-import { TOUR_IMAGE_BLUR } from '@/lib/image-placeholder';
+import { TOUR_IMAGE_BLUR, TOUR_GRADIENT_FALLBACK } from '@/lib/image-placeholder';
 
 interface TourGalleryProps {
   images?: string[];
@@ -44,15 +44,15 @@ export default function TourGallery({
             alt={tourName}
             fill
             priority
-            sizes="(max-width: 640px) 100vw, 80vw"
+            sizes="(max-width: 1024px) 100vw, 810px"
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
             placeholder="blur"
             blurDataURL={TOUR_IMAGE_BLUR}
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
           <div
             className="w-full h-full"
-            style={{ background: gradient || 'linear-gradient(135deg, #0F6FBD 0%, #137DD0 100%)' }}
+            style={{ background: gradient || TOUR_GRADIENT_FALLBACK }}
           />
         )}
         <div className="absolute inset-0 bg-black/15 group-hover:bg-black/5 transition-colors" />
