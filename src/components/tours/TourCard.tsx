@@ -7,6 +7,7 @@ import { MapPin, Clock, Star, Heart } from 'lucide-react';
 import { Tour } from '@/types';
 import { formatCurrency } from '@/lib/format';
 import { useWishlistStore } from '@/stores/use-wishlist-store';
+import { TOUR_IMAGE_BLUR } from '@/lib/image-placeholder';
 
 interface TourCardProps {
   tour: Tour;
@@ -40,6 +41,8 @@ export default function TourCard({ tour, destinationName }: TourCardProps) {
             alt={tour.name}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            placeholder="blur"
+            blurDataURL={TOUR_IMAGE_BLUR}
             className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
         ) : (

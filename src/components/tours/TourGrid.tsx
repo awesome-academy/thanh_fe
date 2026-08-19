@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import { Tour } from '@/types';
 import { useDestinations } from '@/hooks/use-destinations';
 import { SearchX, RotateCcw, AlertTriangle } from 'lucide-react';
@@ -18,8 +19,9 @@ export default function TourGrid({ tours, isLoading, isError = false, refetch }:
   const pathname = usePathname();
   const { data: destinations } = useDestinations();
 
-  const destMap: Record<string, string> = Object.fromEntries(
-    (destinations || []).map((d) => [d.slug, d.name])
+  const destMap = useMemo<Record<string, string>>(
+    () => Object.fromEntries((destinations || []).map((d) => [d.slug, d.name])),
+    [destinations]
   );
 
   if (isLoading) {

@@ -1,8 +1,10 @@
 'use client';
 
+import Image from 'next/image';
 import { Tour } from '@/types';
 import { GuestInfoValues } from './GuestInfoStep';
 import { PaymentMethodType } from './PaymentStep';
+import { TOUR_IMAGE_BLUR } from '@/lib/image-placeholder';
 import { Button } from '@/components/ui/button';
 import { Calendar, Users, MapPin, User, Mail, Phone, ArrowLeft, CheckCircle2, ShieldCheck, FileText, AlertCircle } from 'lucide-react';
 
@@ -66,11 +68,17 @@ export default function OrderSummaryStep({
 
         {/* Tour Information Recap */}
         <div className="flex flex-col sm:flex-row gap-4 p-4 bg-surface-page border border-borderSubtle rounded-2xl">
-          <img
-            src={tour.image}
-            alt={tour.name}
-            className="w-full sm:w-32 h-24 rounded-xl object-cover"
-          />
+          <div className="relative w-full sm:w-32 h-24 rounded-xl overflow-hidden shrink-0">
+            <Image
+              src={tour.image || ''}
+              alt={tour.name}
+              fill
+              className="object-cover"
+              sizes="(max-width: 639px) calc(100vw - 64px), 128px"
+              placeholder="blur"
+              blurDataURL={TOUR_IMAGE_BLUR}
+            />
+          </div>
           <div className="space-y-1.5 flex-1">
             <h3 className="font-bold text-textStrong text-base leading-snug">{tour.name}</h3>
             <div className="flex flex-wrap items-center gap-4 text-xs text-textMuted font-medium">

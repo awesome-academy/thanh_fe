@@ -1,4 +1,11 @@
+import type { Metadata } from 'next';
 import React from "react";
+
+export const metadata: Metadata = {
+  title: 'Tài khoản | TripGo',
+  description:
+    'Đăng nhập hoặc tạo tài khoản TripGo để đặt tour và quản lý chuyến đi của bạn.',
+};
 
 export default function AuthLayout({
   children,

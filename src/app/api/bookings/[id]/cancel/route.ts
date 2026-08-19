@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { bookingsStore } from "@/lib/mock-store";
 import { auth } from "@/auth";
+import { isBookingOwner } from "@/lib/booking-auth";
 
 export async function PATCH(
   request: NextRequest,
@@ -24,22 +25,7 @@ export async function PATCH(
     );
   }
 
-  // Strict ownership verification:
-  // 1. Admin always authorized
-  // 2. If booking.userId exists, MUST match session.user.id ONLY
-  // 3. Fallback to contact.email ONLY for legacy bookings without userId
-  const isAdmin = session.user.role === "admin";
-  let isAuthorized = isAdmin;
-
-  if (!isAuthorized) {
-    if (booking.userId) {
-      isAuthorized = Boolean(session.user.id && booking.userId === session.user.id);
-    } else if (session.user.email && booking.contact?.email) {
-      isAuthorized = booking.contact.email.toLowerCase() === session.user.email.toLowerCase();
-    }
-  }
-
-  if (!isAuthorized) {
+  if (!isBookingOwner(booking, session.user)) {
     return NextResponse.json(
       { error: { code: "FORBIDDEN", message: "Bạn không có quyền hủy đơn hàng này" } },
       { status: 403 }

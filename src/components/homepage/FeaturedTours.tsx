@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import Link from 'next/link';
 import { useTours } from '@/hooks/use-tours';
 import { useDestinations } from '@/hooks/use-destinations';
@@ -9,8 +10,9 @@ export default function FeaturedTours() {
   const { data, isLoading } = useTours({ limit: 4, sort: 'rating' });
   const { data: destinations } = useDestinations();
 
-  const destMap: Record<string, string> = Object.fromEntries(
-    (destinations || []).map((d) => [d.slug, d.name])
+  const destMap = useMemo<Record<string, string>>(
+    () => Object.fromEntries((destinations || []).map((d) => [d.slug, d.name])),
+    [destinations]
   );
 
   return (

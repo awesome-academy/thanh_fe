@@ -1,12 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Review } from "@/types";
 import { toursStore, reviewsStore } from "@/lib/mock-store";
+import { getUserInitials } from "@/lib/format";
+import { auth } from "@/auth";
 
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
+    const session = await auth();
+    if (!session?.user) {
+      return NextResponse.json(
+        { error: { code: "UNAUTHORIZED", message: "Vui lòng đăng nhập để gửi đánh giá" } },
+        { status: 401 }
+      );
+    }
+
     const { slug } = await params;
 
     const tour = toursStore.find((t) => t.slug === slug || t.id === slug);
@@ -17,19 +27,32 @@ export async function POST(
       );
     }
 
-    const body = await request.json();
-    const { userName, rating, comment } = body;
+    const authorName =
+      session.user.name?.trim() || session.user.email?.split("@")[0].trim() || "";
 
-    if (!userName || !rating || !comment) {
+    if (!authorName) {
+      return NextResponse.json(
+        { error: { code: "UNAUTHORIZED", message: "Phiên đăng nhập không hợp lệ" } },
+        { status: 401 }
+      );
+    }
+
+    const body = await request.json();
+    const { rating, comment } = body;
+
+    const trimmedComment = typeof comment === 'string' ? comment.trim() : '';
+    const parsedRating = Number(rating);
+    const isValidRating = Number.isInteger(parsedRating) && parsedRating >= 1 && parsedRating <= 5;
+
+    if (!isValidRating || !trimmedComment) {
       return NextResponse.json(
         {
           error: {
             code: "VALIDATION",
             message: "Thiếu thông tin đánh giá",
             fields: {
-              userName: !userName ? "Vui lòng nhập tên" : "",
-              rating: !rating ? "Vui lòng chọn số sao" : "",
-              comment: !comment ? "Vui lòng nhập nhận xét" : "",
+              rating: !isValidRating ? "Vui lòng chọn số sao (1-5)" : "",
+              comment: !trimmedComment ? "Vui lòng nhập nhận xét" : "",
             },
           },
         },
@@ -37,19 +60,13 @@ export async function POST(
       );
     }
 
-    const nameParts = userName.trim().split(" ");
-    const initials =
-      nameParts.length > 1
-        ? `${nameParts[0][0]}${nameParts[nameParts.length - 1][0]}`.toUpperCase()
-        : nameParts[0].slice(0, 2).toUpperCase();
-
     const newReview: Review = {
-      id: `r${reviewsStore.length + 1}`,
+      id: `r_${crypto.randomUUID()}`,
       tourId: tour.id,
-      userName: userName.trim(),
-      userInitials: initials,
-      rating: Number(rating),
-      comment: comment.trim(),
+      userName: authorName,
+      userInitials: getUserInitials(authorName),
+      rating: parsedRating,
+      comment: trimmedComment,
       createdAt: new Date().toISOString().split("T")[0],
     };
 

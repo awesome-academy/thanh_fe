@@ -22,10 +22,11 @@ export async function generateMetadata({ params }: TourDetailPageProps): Promise
 
   return {
     title: `${tour.name} | TripGo Du Lịch`,
-    description: `Đặt tour ${tour.name} giá rẻ chỉ từ ${tour.price.toLocaleString('vi-VN')} đ. Đảm bảo chất lượng và hoàn hủy linh hoạt.`,
+    description: tour.description,
+    alternates: { canonical: `/tours/${tour.slug}` },
     openGraph: {
       title: tour.name,
-      description: `Khám phá tour ${tour.name} cùng TripGo.`,
+      description: tour.description,
       images: tour.image ? [tour.image] : [],
     },
   };
@@ -99,7 +100,7 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
             excluded={tour.excludes}
           />
           <TourItinerary daysCount={tour.days} itinerary={tour.itinerary} />
-          <TourReviewsSection tourId={tour.id} rating={tour.rating} />
+          <TourReviewsSection tourId={tour.id} slug={tour.slug} rating={tour.rating} />
         </div>
 
         {/* Right Column (1/3) Sticky Booking Widget */}
