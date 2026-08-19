@@ -1,14 +1,19 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
 import { Review } from '@/types';
+import { getUserInitials } from '@/lib/format';
 
 export interface ReviewWithTour extends Review {
   tourName?: string;
 }
 
 export interface SubmitReviewPayload {
-  userName: string;
   rating: number;
   comment: string;
+}
+
+interface SubmitReviewContext {
+  previous?: ReviewWithTour[];
 }
 
 export function useReviews() {
@@ -26,8 +31,9 @@ export function useReviews() {
 
 export function useSubmitReview(slug: string, tourId: string) {
   const queryClient = useQueryClient();
+  const { data: session } = useSession();
 
-  return useMutation<Review, Error, SubmitReviewPayload>({
+  return useMutation<Review, Error, SubmitReviewPayload, SubmitReviewContext>({
     mutationFn: async (payload) => {
       const res = await fetch(`/api/tours/${slug}/reviews`, {
         method: 'POST',
@@ -48,18 +54,15 @@ export function useSubmitReview(slug: string, tourId: string) {
       // Snapshot current cache for rollback
       const previous = queryClient.getQueryData<ReviewWithTour[]>(['reviews']);
 
-      // Build optimistic review object
-      const nameParts = payload.userName.trim().split(' ');
-      const initials =
-        nameParts.length > 1
-          ? `${nameParts[0][0]}${nameParts[nameParts.length - 1][0]}`.toUpperCase()
-          : nameParts[0].slice(0, 2).toUpperCase();
+      // Mirror the server: the displayed author is the signed-in user.
+      const authorName =
+        session?.user?.name?.trim() || session?.user?.email?.split('@')[0] || 'Bạn';
 
       const optimistic: ReviewWithTour = {
         id: `optimistic-${Date.now()}`,
         tourId: tourId,
-        userName: payload.userName.trim(),
-        userInitials: initials,
+        userName: authorName,
+        userInitials: getUserInitials(authorName),
         rating: payload.rating,
         comment: payload.comment.trim(),
         createdAt: new Date().toISOString().split('T')[0],
@@ -73,10 +76,9 @@ export function useSubmitReview(slug: string, tourId: string) {
     },
 
     onError: (_err, _vars, context) => {
-      const ctx = context as { previous?: ReviewWithTour[] } | undefined;
-      if (ctx?.previous !== undefined) {
+      if (context?.previous !== undefined) {
         // Restore previous snapshot if we had one
-        queryClient.setQueryData(['reviews'], ctx.previous);
+        queryClient.setQueryData(['reviews'], context.previous);
       } else {
         // Cache was empty before mutation; remove only the optimistic entry
         queryClient.setQueryData<ReviewWithTour[]>(['reviews'], (old) =>

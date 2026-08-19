@@ -20,8 +20,9 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 function getSanitizedCallbackUrl(rawUrl: string | null): string {
   if (!rawUrl || rawUrl.includes('\\')) return '/';
   try {
-    const parsed = new URL(rawUrl, window.location.origin);
-    if (parsed.origin !== window.location.origin) return '/';
+    const PARSE_ORIGIN = 'http://localhost';
+    const parsed = new URL(rawUrl, PARSE_ORIGIN);
+    if (parsed.origin !== PARSE_ORIGIN) return '/';
     const sanitized = parsed.pathname + parsed.search + parsed.hash;
     if (sanitized.includes('\\') || sanitized.startsWith('//')) return '/';
     return sanitized;

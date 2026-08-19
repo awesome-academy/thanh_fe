@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
@@ -11,7 +11,6 @@ import { Star, Send, CheckCircle2, AlertCircle, PenLine } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const reviewSchema = z.object({
-  userName: z.string().trim().min(2, 'Vui lòng nhập tên (tối thiểu 2 ký tự)'),
   rating: z.number().min(1, 'Vui lòng chọn số sao').max(5),
   comment: z
     .string()
@@ -44,18 +43,11 @@ export default function ReviewSubmitForm({ slug, tourId }: ReviewSubmitFormProps
     formState: { errors },
   } = useForm<ReviewFormValues>({
     resolver: zodResolver(reviewSchema),
-    defaultValues: { userName: '', rating: 0, comment: '' },
+    defaultValues: { rating: 0, comment: '' },
   });
 
   const selectedRating = watch('rating');
   const commentValue = watch('comment');
-
-  // Auto-fill userName from session
-  useEffect(() => {
-    if (session?.user?.name) {
-      setValue('userName', session.user.name);
-    }
-  }, [session, setValue]);
 
   const onSubmit = (values: ReviewFormValues) => {
     if (!session) {
@@ -66,7 +58,7 @@ export default function ReviewSubmitForm({ slug, tourId }: ReviewSubmitFormProps
     mutate(values, {
       onSuccess: () => {
         setSubmitted(true);
-        reset({ userName: session?.user?.name || '', rating: 0, comment: '' });
+        reset({ rating: 0, comment: '' });
         setTimeout(() => {
           setSubmitted(false);
           resetMutation();
@@ -104,20 +96,11 @@ export default function ReviewSubmitForm({ slug, tourId }: ReviewSubmitFormProps
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
-        {/* User Name */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-textBody">
-            Tên của bạn <span className="text-rose-500">*</span>
-          </label>
-          <input
-            {...register('userName')}
-            type="text"
-            placeholder="Nguyễn Văn A"
-            className="w-full px-3 py-2.5 text-sm text-textStrong bg-surface-page border border-borderSubtle rounded-xl focus:outline-none focus:ring-2 focus:ring-cacao-500/30 focus:border-cacao-500 transition-colors placeholder:text-textSubtle"
-          />
-          {errors.userName && (
-            <p className="text-[11px] text-rose-600 font-medium">{errors.userName.message}</p>
-          )}
+          <span className="text-xs font-semibold text-textBody block">Đánh giá với tên</span>
+          <p className="w-full px-3 py-2.5 text-sm font-medium text-textStrong bg-surface-page border border-borderSubtle rounded-xl">
+            {session?.user?.name || 'Bạn cần đăng nhập'}
+          </p>
         </div>
 
         {/* Star Rating Picker */}

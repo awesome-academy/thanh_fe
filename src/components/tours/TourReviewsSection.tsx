@@ -2,7 +2,7 @@
 
 import { useReviews } from '@/hooks/use-reviews';
 import ReviewSubmitForm from '@/components/tours/ReviewSubmitForm';
-import { Star, MessageSquare, ShieldCheck } from 'lucide-react';
+import { Star, MessageSquare } from 'lucide-react';
 
 interface TourReviewsSectionProps {
   tourId: string;
@@ -52,12 +52,7 @@ export default function TourReviewsSection({ tourId, slug, rating }: TourReviews
                       {item.userInitials || item.userName[0]}
                     </div>
                     <div>
-                      <div className="flex items-center gap-1.5">
-                        <span className="font-bold text-textStrong text-sm">{item.userName}</span>
-                        <span className="text-[10px] bg-emerald-50 text-emerald-600 font-semibold px-2 py-0.5 rounded-full flex items-center gap-1">
-                          <ShieldCheck className="w-3 h-3" /> Đã đi tour
-                        </span>
-                      </div>
+                      <span className="font-bold text-textStrong text-sm">{item.userName}</span>
                       <span className="text-[11px] text-textSubtle">{item.createdAt}</span>
                     </div>
                   </div>

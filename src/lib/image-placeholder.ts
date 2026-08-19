@@ -30,12 +30,8 @@ const toBase64 = (str: string): string => {
   // Browser
   return window.btoa(unescape(encodeURIComponent(str)));
 };
-
 /** Base64-encoded shimmer placeholder for landscape tour images (700×475). */
 export const TOUR_IMAGE_BLUR = `data:image/svg+xml;base64,${toBase64(shimmerSvg)}`;
-
-/** Smaller shimmer for thumbnail-size images (160×120). */
-export const TOUR_THUMB_BLUR = TOUR_IMAGE_BLUR;
 
 /**
  * Background for a tour that has no photo, or whose own `gradient` is unset.

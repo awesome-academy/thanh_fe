@@ -2,7 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { Booking } from "@/types";
 import { toursStore, bookingsStore } from "@/lib/mock-store";
+import { getBusinessToday } from "@/lib/format";
 import { auth } from "@/auth";
+import { isBookingOwner } from "@/lib/booking-auth";
 
 const MAX_GUESTS_PER_TYPE = 20;
 
@@ -11,7 +13,7 @@ const bookingSchema = z.object({
   date: z
     .string()
     .regex(/^\d{4}-\d{2}-\d{2}$/, "Ngày khởi hành không đúng định dạng")
-    .refine((value) => value >= new Date().toISOString().split("T")[0], {
+    .refine((value) => value >= getBusinessToday(), {
       message: "Ngày khởi hành không được ở quá khứ",
     }),
   adults: z.number().int().min(1, "Cần tối thiểu 1 người lớn").max(MAX_GUESTS_PER_TYPE),
@@ -29,23 +31,6 @@ const bookingSchema = z.object({
     note: z.string().optional(),
   }),
 });
-
-function isBookingOwner(
-  booking: Booking,
-  user: { id?: string; email?: string | null; role?: string }
-): boolean {
-  if (user.role === "admin") return true;
-
-  if (booking.userId) {
-    return Boolean(user.id && booking.userId === user.id);
-  }
-
-  if (user.email && booking.contact?.email) {
-    return booking.contact.email.toLowerCase() === user.email.toLowerCase();
-  }
-
-  return false;
-}
 
 export async function GET() {
   const session = await auth();

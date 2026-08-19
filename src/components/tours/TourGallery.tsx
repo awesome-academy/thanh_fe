@@ -44,7 +44,7 @@ export default function TourGallery({
             alt={tourName}
             fill
             priority
-            sizes="(max-width: 1024px) 100vw, 1024px"
+            sizes="(max-width: 1024px) 100vw, 810px"
             className="object-cover group-hover:scale-105 transition-transform duration-500"
             placeholder="blur"
             blurDataURL={TOUR_IMAGE_BLUR}
@@ -94,9 +94,9 @@ export default function TourGallery({
                   alt={`${tourName} — ảnh ${idx + 1}`}
                   fill
                   sizes="(max-width: 640px) 25vw, 240px"
-                  className="object-cover"
                   placeholder="blur"
                   blurDataURL={TOUR_IMAGE_BLUR}
+                  className="object-cover"
                 />
               </button>
             );
@@ -115,13 +115,13 @@ export default function TourGallery({
           >
             <X className="w-6 h-6" />
           </button>
-          <div className="relative w-full max-w-5xl h-[85vh]">
+          <div className="relative max-w-4xl w-full max-h-[85vh] aspect-video rounded-2xl overflow-hidden shadow-2xl">
             <Image
               src={lightboxImage}
               alt={tourName}
               fill
               sizes="100vw"
-              className="object-contain rounded-2xl"
+              className="object-contain"
             />
           </div>
         </div>

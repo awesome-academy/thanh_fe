@@ -41,9 +41,9 @@ export default function TourCard({ tour, destinationName }: TourCardProps) {
             alt={tour.name}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
             placeholder="blur"
             blurDataURL={TOUR_IMAGE_BLUR}
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
           <div

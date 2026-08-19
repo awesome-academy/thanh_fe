@@ -74,9 +74,12 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  password?: string;
   avatar?: string;
   role: 'user' | 'admin';
+}
+
+export interface StoredUser extends User {
+  password: string;
 }
 
 export interface APIValidationError {
